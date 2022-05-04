@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Exception;
@@ -11,23 +12,18 @@ class UserController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        // If request is validated in RegisterRequest, encrypt password and generate token
+        $validatedData = $request->validated();
+        // If request is validated, encrypt password and generate token
         try {
-            $user = User::create([
-                'first_name' => $request->get('first_name'),
-                'last_name' => $request->get('last_name'),
-                'profile_picture' => $request->get('profile_picture'),
-                'username' => $request->get('username'),
-                'email' => $request->get('email'),
-                'password' => bcrypt($request->password),
-                'is_admin' => false,
-            ]);
+            $validatedData['password']=bcrypt($validatedData['password']);
+            $user = User::create($validatedData);
 
-            $token = $user->createToken('token')->accessToken;
+            // $token = $user->createToken('token')->accessToken;
 
             return response()->json([
                 'message' => 'User registered successfully',
-                'token' => $token,
+                // 'token' => $token,
+                'user' => $user,
             ], 200);
         } catch (Exception $exception) {
 
