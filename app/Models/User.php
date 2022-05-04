@@ -47,5 +47,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+    public function users(){
+        // One user can have many roles
+        return $this->belongsToMany(User::class, 'role_users');
+        // One user is able to review many translations
+        return $this->belongsToMany(User::class, 'translation__users');
+        // One user is able to learn many languages
+        return $this->belongsToMany(User::class, 'learn__users');
+        // One user is able to speak many languages
+        return $this->belongsToMany(User::class, 'speak__users');
+    }
 }

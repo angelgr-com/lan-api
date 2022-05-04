@@ -15,7 +15,20 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            CountrySeeder::class,
+            // LanguageSeeder::class,
+            // CefrSeeder::class,
+            // TypeSeeder::class,
             UserSeeder::class,
+            // AuthorSeeder::class,
+            // SourceSeeder::class,
+            // TextSeeder::class,
+            // AuthorSourceSeeder::class,
+            // EsTextSeeder::class,
+            // StudentSeeder::class,
+            // NativeSeeder::class,
+            // TranslationSeeder::class,
+            // TranslationUserSeeder::class,
         ]);
     }
 }
