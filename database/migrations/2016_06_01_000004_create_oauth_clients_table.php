@@ -42,8 +42,7 @@ return new class extends Migration
     {
         $this->schema->create('oauth_clients', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->unsignedBigInteger('user_id')->nullable()->index();
-            $table->string('name');
+            $table->uuid('user_id')->nullable()->index();            $table->string('name');
             $table->string('secret', 100)->nullable();
             $table->string('provider')->nullable();
             $table->text('redirect');
