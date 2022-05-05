@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Speak_User;
+use App\Models\Native;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SpeakUserPolicy
+class NativePolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class SpeakUserPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Speak_User  $speakUser
+     * @param  \App\Models\Native  $native
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Speak_User $speakUser)
+    public function view(User $user, Native $native)
     {
         //
     }
@@ -48,10 +48,10 @@ class SpeakUserPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Speak_User  $speakUser
+     * @param  \App\Models\Native  $native
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Speak_User $speakUser)
+    public function update(User $user, Native $native)
     {
         //
     }
@@ -60,10 +60,10 @@ class SpeakUserPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Speak_User  $speakUser
+     * @param  \App\Models\Native  $native
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Speak_User $speakUser)
+    public function delete(User $user, Native $native)
     {
         //
     }
@@ -72,10 +72,10 @@ class SpeakUserPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Speak_User  $speakUser
+     * @param  \App\Models\Native  $native
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Speak_User $speakUser)
+    public function restore(User $user, Native $native)
     {
         //
     }
@@ -84,10 +84,10 @@ class SpeakUserPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Speak_User  $speakUser
+     * @param  \App\Models\Native  $native
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Speak_User $speakUser)
+    public function forceDelete(User $user, Native $native)
     {
         //
     }

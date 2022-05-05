@@ -11,13 +11,12 @@ return new class extends Migration
      *
      * @return void
      */
-	public function up()
+    public function up()
     {
-        Schema::create('speak__users', function (Blueprint $table) {
+        Schema::create('natives', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->uuid('language_id');
-            $table->timestamps();
 
             $table->foreign('user_id')
                   ->references('id')
@@ -37,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('speak__users');
+        Schema::dropIfExists('natives');
     }
 };

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Text;
+use App\Models\Translation;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +15,6 @@ class TranslationSeeder extends Seeder
      */
     public function run()
     {
-        Text::factory()->times(10)->create();
+        Translation::factory()->times(10)->create();
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Speak_User;
+use App\Models\Native;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SpeakUserSeeder extends Seeder
+class NativeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class SpeakUserSeeder extends Seeder
      */
     public function run()
     {
-        Speak_User::factory()->times(10)->create();
+        Native::factory()->times(10)->create();
     }
 }

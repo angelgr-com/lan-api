@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use App\Models\Language;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Speak_User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Native>
  */
-class Speak_UserFactory extends Factory
+class NativeFactory extends Factory
 {
     /**
      * Define the model's default state.

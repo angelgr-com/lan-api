@@ -20,13 +20,11 @@ class TranslationFactory extends Factory
      */
     public function definition()
     {
-        $now = new DateTime();
         $languageIds = Language::all()->pluck('id')->toArray();
         $textIds = Text::all()->pluck('id')->toArray();
         $userIds = User::all()->pluck('id')->toArray();
 
         return [
-            'date'=>$now,
             'hit_rate'=>$this->faker->randomFloat(2, 0, 1),
             'text'=>$this->faker->sentence(),
             'language_id'=>$this->faker->randomElement($languageIds), 

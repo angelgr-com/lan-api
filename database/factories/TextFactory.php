@@ -29,7 +29,7 @@ class TextFactory extends Factory
         return [
             'text'=>$this->faker->sentence(),
             'cefr_id'=>$this->faker->randomElement($cefrIds),
-            'difficulty'=>$this->difficulty[rand(0, 2)], 
+            'difficulty'=>$difficulty[rand(0, 2)], 
             'source_id'=>$this->faker->randomElement($sourceIds), 
             'type_id'=>$this->faker->randomElement($typeIds),
         ];
