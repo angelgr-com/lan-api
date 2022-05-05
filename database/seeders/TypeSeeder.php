@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class RoleSeeder extends Seeder
+class TypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,12 +16,13 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $roles = [
-			['id' => Str::uuid(), 'type' => 'admin'],
-			['id' => Str::uuid(), 'type' => 'student'],
-            ['id' => Str::uuid(), 'type' => 'teacher'],
+        DB::table('types')->truncate();
+ 
+        $cefrs = [
+			['id' => Str::uuid(), 'type' => 'poetry'],
+			['id' => Str::uuid(), 'type' => 'quote'],
         ];
  
-        DB::table('roles')->insert($roles);
+        DB::table('types')->insert($cefrs);
     }
 }
