@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             DifficultySeeder::class,
             // TypeSeeder::class,
             UserSeeder::class,
+            CefrSeeder::class,
             RoleSeeder::class,
             // RoleUserSeeder::class,
             // AuthorSeeder::class,
