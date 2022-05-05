@@ -16,8 +16,6 @@ class CefrSeeder extends Seeder
      */
     public function run()
     {
-    	DB::table('cefrs')->truncate();
- 
         $cefrs = [
 			['id' => Str::uuid(), 'level' => 'A1'],
 			['id' => Str::uuid(), 'level' => 'A2'],

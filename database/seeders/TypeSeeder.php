@@ -16,8 +16,6 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('types')->truncate();
- 
         $cefrs = [
 			['id' => Str::uuid(), 'type' => 'poetry'],
 			['id' => Str::uuid(), 'type' => 'quote'],

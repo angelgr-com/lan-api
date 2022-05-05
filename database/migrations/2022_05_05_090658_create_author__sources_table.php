@@ -13,26 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('texts', function (Blueprint $table) {
+        Schema::create('author__sources', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->text('text', 65535);
-            $table->enum('difficulty', ['easy', 'medium', 'hard']);
+            $table->uuid('author_id');
             $table->uuid('source_id');
-            $table->uuid('cefr_id');
-            $table->uuid('type_id');
-            $table->timestamps();
 
+            $table->foreign('author_id')
+                  ->references('id')
+                  ->on('authors')
+                  ->onDelete('cascade');
             $table->foreign('source_id')
                   ->references('id')
                   ->on('sources')
-                  ->onDelete('cascade');
-            $table->foreign('cefr_id')
-                  ->references('id')
-                  ->on('cefrs')
-                  ->onDelete('cascade');
-            $table->foreign('type_id')
-                  ->references('id')
-                  ->on('types')
                   ->onDelete('cascade');
         });
     }
@@ -44,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('texts');
+        Schema::dropIfExists('author__sources');
     }
 };
