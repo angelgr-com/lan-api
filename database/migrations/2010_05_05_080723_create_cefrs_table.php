@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('cefrs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->enum('level', ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'])->unique;
-            $table->timestamps();
         });
     }
 

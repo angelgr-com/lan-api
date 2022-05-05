@@ -10,6 +10,8 @@ class Type extends Model
 {
     use Uuids, HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'type',
     ];

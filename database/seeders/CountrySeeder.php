@@ -18,9 +18,6 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        $now = new DateTime();
-        $now = $now->format('Y-m-d H:i:s');
-
         $countries = [
             ['code' => 'AF', 'id' => Str::uuid(), 'name' => 'Afghanistan'],
             ['code' => 'AX', 'id' => Str::uuid(), 'name' => 'Aland Islands'],

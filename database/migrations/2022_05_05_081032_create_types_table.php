@@ -16,7 +16,6 @@ return new class extends Migration
 		Schema::create('types', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('type', 30)->unique;
-            $table->timestamps();
         });
     }
 
