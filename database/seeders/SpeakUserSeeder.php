@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Author;
+use App\Models\Speak_User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AuthorSeeder extends Seeder
+class SpeakUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class AuthorSeeder extends Seeder
      */
     public function run()
     {
-        Author::factory()->times(10)->create();
+        Speak_User::factory()->times(10)->create();
     }
 }

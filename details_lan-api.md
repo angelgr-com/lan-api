@@ -789,7 +789,7 @@ class Role extends Model
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('type', 20)->unique;
+            $table->enum('type', ['admin', 'student', 'teacher'])->unique;
             $table->timestamps();
         });
     }
@@ -805,16 +805,14 @@ class Role extends Model
 ```php
 public function run()
     {
-    	DB::table('roles')->truncate();
- 
         $roles = [
-			['type' => 'admin'],
-			['type' => 'student'],
-            ['type' => 'teacher'],
+			['id' => Str::uuid(), 'type' => 'admin'],
+			['id' => Str::uuid(), 'type' => 'student'],
+            ['id' => Str::uuid(), 'type' => 'teacher'],
         ];
  
         DB::table('roles')->insert($roles);
-    } 
+    }
 ```
 
 #### Language
@@ -1087,7 +1085,7 @@ class Role_User extends Model
 ```php
     public function up()
     {
-        Schema::create('role_users', function (Blueprint $table) {
+        Schema::create('role__users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('role_id');
             $table->uuid('user_id');
@@ -1140,9 +1138,14 @@ php artisan make:model Difficulty -a
 ##### Model
 
 ```php
+class Difficulty extends Model
+{
+    use Uuids, HasFactory;
+
     protected $fillable = [
         'level',
     ];
+}
 ```
 
 ##### Migration
@@ -1152,7 +1155,7 @@ php artisan make:model Difficulty -a
     {
         Schema::create('difficulties', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('level');
+			$table->enum('level', ['easy', 'medium', 'hard'])->unique;
             $table->timestamps();
         });
     }
@@ -1172,9 +1175,9 @@ public function run()
     	DB::table('difficulties')->truncate();
  
         $difficulties = [
-			['level' => 'easy'],
-			['level' => 'medium'],
-            ['level' => 'hard'],
+			['id' => Str::uuid(), 'level' => 'easy'],
+			['id' => Str::uuid(), 'level' => 'medium'],
+            ['id' => Str::uuid(), 'level' => 'hard'],
         ];
  
         DB::table('difficulties')->insert($difficulties);
@@ -1186,15 +1189,20 @@ public function run()
 Generate model, migration, factory and seeder:
 
 ```bash
-php artisan make:model Difficulty -a
+php artisan make:model Cefr -a
 ```
 
 ##### Model
 
 ```php
+class Cefr extends Model
+{
+    use Uuids, HasFactory;
+
     protected $fillable = [
         'level',
     ];
+}
 ```
 
 ##### Migration
@@ -1204,7 +1212,7 @@ php artisan make:model Difficulty -a
     {
         Schema::create('cefrs', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('level', 2)->unique;
+            $table->enum('level', ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'])->unique;
             $table->timestamps();
         });
     }
@@ -1221,18 +1229,95 @@ php artisan make:model Difficulty -a
 ```php
 public function run()
     {
-    	DB::table('cefrs')->truncate();
- 
         $cefrs = [
-			['level' => 'A1'],
-			['level' => 'A2'],
-            ['level' => 'B1'],
-			['level' => 'B2'],
-			['level' => 'C1'],
-            ['level' => 'C2'],
+			['id' => Str::uuid(), 'level' => 'A1'],
+			['id' => Str::uuid(), 'level' => 'A2'],
+            ['id' => Str::uuid(), 'level' => 'B1'],
+			['id' => Str::uuid(), 'level' => 'B2'],
+			['id' => Str::uuid(), 'level' => 'C1'],
+            ['id' => Str::uuid(), 'level' => 'C2'],
         ];
  
         DB::table('cefrs')->insert($cefrs);
+    }
+```
+
+#### Source
+
+Generate model, migration, factory and seeder:
+
+```bash
+php artisan make:model Source -a
+```
+
+##### Model
+
+```php
+class Source extends Model
+{
+    use Uuids, HasFactory;
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'title',
+    	'chapter',
+    	'paragraph',
+        'url',
+        'author_id',
+    ];
+
+    // A source can have many authors
+    public function sources(){
+        return $this->belongsToMany(Source::class, 'author__sources');
+    }
+}
+```
+
+##### Migration
+
+```php
+public function up()
+    {
+        Schema::create('sources', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('title', 100)->nullable();
+            $table->integer('chapter')->length(100)->nullable();
+            $table->integer('paragraph')->length(1000)->nullable();
+            $table->string('url', 255)->nullable();
+            $table->uuid('author_id');
+
+            $table->foreign('author_id')
+            ->references('id')
+            ->on('authors')
+            ->onDelete('cascade');
+        });
+    }
+```
+
+##### Factory
+
+```php
+    public function definition()
+    {
+        $authorIds = Author::all()->pluck('id')->toArray();
+
+        return [
+            'title'=>$this->faker->sentence(),
+            'chapter'=>$this->faker->randomNumber(2, false),
+            'paragraph'=>$this->faker->randomNumber(2, false),
+            'url'=>$this->faker->url(),
+            'author_id'=>$this->faker->randomElement($authorIds),
+        ];
+    }
+```
+
+##### Seeder
+
+```php
+    public function run()
+    {
+        Source::factory()->times(10)->create();
     }
 ```
 
@@ -1247,9 +1332,14 @@ php artisan make:model Type -a
 ##### Model
 
 ```php
+class Type extends Model
+{
+    use Uuids, HasFactory;
+
     protected $fillable = [
         'type',
     ];
+}
 ```
 
 ##### Migration
@@ -1259,7 +1349,7 @@ php artisan make:model Type -a
     {
 		Schema::create('types', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('type', 20)->unique;
+            $table->string('type', 30)->unique;
             $table->timestamps();
         });
     }
@@ -1276,14 +1366,12 @@ php artisan make:model Type -a
 ```php
     public function run()
     {
-        DB::table('cefrs')->truncate();
- 
         $cefrs = [
-			['type' => 'poetry'],
-			['type' => 'quote'],
+			['id' => Str::uuid(), 'type' => 'poetry'],
+			['id' => Str::uuid(), 'type' => 'quote'],
         ];
  
-        DB::table('cefrs')->insert($cefrs);
+        DB::table('types')->insert($cefrs);
     }
 ```
 
@@ -1298,7 +1386,11 @@ php artisan make:model Author -a
 ##### Model
 
 ```php
-	protected $fillable = [
+class Author extends Model
+{
+    use Uuids, HasFactory;
+
+    protected $fillable = [
         'first_name',
         'last_name',
     ];
@@ -1307,6 +1399,7 @@ php artisan make:model Author -a
     public function authors(){
         return $this->belongsToMany(Author::class, 'author__texts');
     }
+}
 ```
 
 ##### Migration
@@ -1316,8 +1409,8 @@ public function up()
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('first_name, 50');
-            $table->string('last_name, 50');
+            $table->string('first_name', 50);
+            $table->string('last_name', 50);
             $table->timestamps();
         });
     }
@@ -1329,8 +1422,8 @@ public function up()
     public function definition()
     {
         return [
-            'first_name' => $this->faker->name(),
-            'last_name' => $this->faker->name(),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
         ];
     }
 ```
@@ -1344,6 +1437,78 @@ public function up()
     }
 ```
 
+#### Author_Source
+
+Generate model, migration, factory and seeder:
+
+```bash
+php artisan make:model Author_Source -a
+```
+
+##### Model
+
+```php
+class Author_Source extends Model
+{
+    use Uuids, HasFactory;
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'author_id',
+        'source_id',
+    ];
+}
+```
+
+##### Migration
+
+```php
+public function up()
+    {
+        Schema::create('author__sources', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->uuid('author_id');
+            $table->uuid('source_id');
+
+            $table->foreign('author_id')
+                  ->references('id')
+                  ->on('authors')
+                  ->onDelete('cascade');
+            $table->foreign('source_id')
+                  ->references('id')
+                  ->on('sources')
+                  ->onDelete('cascade');
+        });
+    }
+```
+
+##### Factory
+
+```php
+public function definition()
+    {
+        $authorIds = Author::all()->pluck('id')->toArray();
+        $sourceIds = Source::all()->pluck('id')->toArray();
+
+        return [
+            'author_id'=>$this->faker->randomElement($authorIds), 
+            'source_id'=>$this->faker->randomElement($sourceIds),
+        ];
+    }
+```
+
+##### Seeder
+
+```php
+    public function run()
+    {
+        Author_Source::factory()->times(10)->create();
+    }
+```
+
+####
+
 #### Text
 
 Generate model, migration, factory and seeder:
@@ -1355,7 +1520,11 @@ php artisan make:model Text -a
 ##### Model
 
 ```php
-protected $fillable = [
+class Text extends Model
+{
+    use Uuids, HasFactory;
+
+    protected $fillable = [
         'text',
         'author_id',
         'cefr_id',
@@ -1367,19 +1536,20 @@ protected $fillable = [
     public function texts(){
         return $this->belongsToMany(Text::class, 'author__texts');
     }
+}
 ```
 
 ##### Migration
 
 ```php
-    public function up()
+public function up()
     {
         Schema::create('texts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->text('text', 65534)->unique();
-            $table->enum('difficulty', ['easy', 'medium', 'hard']);
             $table->uuid('author_id');
             $table->uuid('cefr_id');
+            $table->uuid('difficulty_id');
             $table->uuid('type_id');
             $table->timestamps();
 
@@ -1388,8 +1558,12 @@ protected $fillable = [
                   ->on('authors')
                   ->onDelete('cascade');
             $table->foreign('cefr_id')
+                ->references('id')
+                ->on('cefrs')
+                ->onDelete('cascade');
+            $table->foreign('difficulty_id')
                   ->references('id')
-                  ->on('cefrs')
+                  ->on('difficulties')
                   ->onDelete('cascade');
             $table->foreign('type_id')
                   ->references('id')
@@ -1402,19 +1576,18 @@ protected $fillable = [
 ##### Factory
 
 ```php
-    public function definition()
+public function definition()
     {
-        $authorIds = Author::all()->pluck('id')->toArray();
+        $sourceIds = Source::all()->pluck('id')->toArray();
         $cefrIds = Cefr::all()->pluck('id')->toArray();
-        $difficultyIds = Difficulty::all()->pluck('id')->toArray();
         $typeIds = Type::all()->pluck('id')->toArray();
 
         return [
             'text'=>$this->faker->sentence(),
-            'author_id'=>$this->faker->randomElement($authorIds), 
-            'user_id'=>$this->faker->randomElement($cefrIds),
-            'role_id'=>$this->faker->randomElement($difficultyIds), 
-            'user_id'=>$this->faker->randomElement($typeIds),
+            'difficulty'=>$this->faker->numberBetween(1, 3), 
+            'source_id'=>$this->faker->randomElement($sourceIds), 
+            'cefr_id'=>$this->faker->randomElement($cefrIds),
+            'type_id'=>$this->faker->randomElement($typeIds),
         ];
     }
 ```
@@ -1428,21 +1601,26 @@ protected $fillable = [
     }
 ```
 
-#### Es_text
+#### Estext
 
 Generate model, migration, factory and seeder:
 
 ```bash
-php artisan make:model Es_text -a
+php artisan make:model Estext -a
 ```
 
 ##### Model
 
 ```php
+class Estext extends Model
+{
+    use Uuids, HasFactory;
+
     protected $fillable = [
         'text',
         'text_id',
     ];
+}
 ```
 
 ##### Migration
@@ -1452,7 +1630,7 @@ php artisan make:model Es_text -a
     {
         Schema::create('estexts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->text('text', 65534)->unique();
+            $table->text('text', 65534);
             $table->uuid('text_id');
             $table->timestamps();
 
@@ -1498,6 +1676,10 @@ php artisan make:model Translation -a
 ##### Model
 
 ```php
+class Translation extends Model
+{
+    use Uuids, HasFactory;
+
     protected $fillable = [
         'date_time',
         'hit_rate',
@@ -1511,6 +1693,7 @@ php artisan make:model Translation -a
     public function translations() {
         return $this->belongsToMany(Translation::class, 'translation_users');
     }
+}
 ```
 
 ##### Migration
@@ -1586,10 +1769,15 @@ php artisan make:model Translation_User -a
 ##### Model
 
 ```php
+class Translation_User extends Model
+{
+    use Uuids, HasFactory;
+
     protected $fillable = [
         'author_id',
         'text_id',
     ];
+}
 ```
 
 ##### Migration
@@ -1644,16 +1832,21 @@ php artisan make:model Translation_User -a
 Generate model, migration, factory and seeder:
 
 ```bash
-php artisan make:model Autor_Text -a
+php artisan make:model Author_Text -a
 ```
 
 ##### Model
 
 ```php
+class Author_Text extends Model
+{
+    use Uuids, HasFactory;
+
     protected $fillable = [
         'author_id',
         'text_id',
     ];
+}
 ```
 
 ##### Migration
@@ -1714,10 +1907,15 @@ php artisan make:model Learn_User -a
 ##### Model
 
 ```php
+class Learn_User extends Model
+{
+    use Uuids, HasFactory;
+
     protected $fillable = [
         'user_id',
         'language_id',
     ];
+}
 ```
 
 ##### Migration
@@ -1775,10 +1973,15 @@ php artisan make:model Speak_User -a
 ##### Model
 
 ```php
+class Speak_User extends Model
+{
+    use Uuids, HasFactory;
+
     protected $fillable = [
         'user_id',
         'language_id',
     ];
+}
 ```
 
 ##### Migration

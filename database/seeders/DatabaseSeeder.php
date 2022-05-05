@@ -28,10 +28,10 @@ class DatabaseSeeder extends Seeder
             TextSeeder::class,
             AuthorSourceSeeder::class,
             EsTextSeeder::class,
-            // StudentSeeder::class,
-            // NativeSeeder::class,
-            // TranslationSeeder::class,
-            // TranslationUserSeeder::class,
+            StudentSeeder::class,
+            NativeSeeder::class,
+            TranslationSeeder::class,
+            TranslationUserSeeder::class,
         ]);
     }
 }
