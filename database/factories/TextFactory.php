@@ -21,15 +21,16 @@ class TextFactory extends Factory
      */
     public function definition()
     {
-        $sourceIds = Source::all()->pluck('id')->toArray();
         $cefrIds = Cefr::all()->pluck('id')->toArray();
+        $difficulty = ['easy', 'medium', 'hard'];
+        $sourceIds = Source::all()->pluck('id')->toArray();
         $typeIds = Type::all()->pluck('id')->toArray();
 
         return [
             'text'=>$this->faker->sentence(),
-            'difficulty'=>$this->faker->numberBetween(1, 3), 
-            'source_id'=>$this->faker->randomElement($sourceIds), 
             'cefr_id'=>$this->faker->randomElement($cefrIds),
+            'difficulty'=>$this->difficulty[rand(0, 2)], 
+            'source_id'=>$this->faker->randomElement($sourceIds), 
             'type_id'=>$this->faker->randomElement($typeIds),
         ];
     }

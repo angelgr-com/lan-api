@@ -12,14 +12,9 @@ class Text extends Model
 
     protected $fillable = [
         'text',
-        'author_id',
+    	'difficulty',
+        'source_id',
         'cefr_id',
-    	'difficulty_id',
     	'type_id',
     ];
-
-    // A text can have many authors
-    public function texts(){
-        return $this->belongsToMany(Text::class, 'author__texts');
-    }
 }
