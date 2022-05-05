@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Text;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TextSeeder extends Seeder
+class EstextSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +14,6 @@ class TextSeeder extends Seeder
      */
     public function run()
     {
-        Text::factory()->times(10)->create();
+        //
     }
 }

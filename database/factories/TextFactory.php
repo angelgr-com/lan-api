@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Author;
 use App\Models\Cefr;
 use App\Models\Difficulty;
+use App\Models\Source;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,16 +21,15 @@ class TextFactory extends Factory
      */
     public function definition()
     {
-        $authorIds = Author::all()->pluck('id')->toArray();
+        $sourceIds = Source::all()->pluck('id')->toArray();
         $cefrIds = Cefr::all()->pluck('id')->toArray();
-        $difficultyIds = Difficulty::all()->pluck('id')->toArray();
         $typeIds = Type::all()->pluck('id')->toArray();
 
         return [
             'text'=>$this->faker->sentence(),
-            'author_id'=>$this->faker->randomElement($authorIds), 
+            'difficulty'=>$this->faker->numberBetween(1, 3), 
+            'source_id'=>$this->faker->randomElement($sourceIds), 
             'cefr_id'=>$this->faker->randomElement($cefrIds),
-            'difficulty_id'=>$this->faker->randomElement($difficultyIds), 
             'type_id'=>$this->faker->randomElement($typeIds),
         ];
     }
