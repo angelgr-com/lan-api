@@ -1071,10 +1071,15 @@ php artisan make:model Role_User -a
 ##### Model
 
 ```php
+class Role_User extends Model
+{
+    use Uuids, HasFactory;
+
     protected $fillable = [
         'role_id',
         'user_id',
     ];
+}
 ```
 
 ##### Migration
@@ -1120,7 +1125,7 @@ php artisan make:model Role_User -a
 ```php
     public function run()
     {
-        Role_user::factory()->times(10)->create();
+        Role_User::factory()->times(10)->create();
     }
 ```
 
