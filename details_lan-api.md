@@ -443,6 +443,8 @@ php artisan make:model Country -a
 class Country extends Model
 {
     use Uuids, HasFactory;
+    
+    public $timestamps = false;
 
     protected $fillable = [
         'name',
@@ -460,7 +462,6 @@ public function up()
             $table->uuid('id')->primary();
             $table->string('name', 50)->unique;
             $table->string('code', 2)->unique;
-            $table->timestamps();
         });
     }
 ```
@@ -1141,6 +1142,8 @@ php artisan make:model Cefr -a
 class Cefr extends Model
 {
     use Uuids, HasFactory;
+    
+    public $timestamps = false;
 
     protected $fillable = [
         'level',
@@ -1156,7 +1159,6 @@ class Cefr extends Model
         Schema::create('cefrs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->enum('level', ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'])->unique;
-            $table->timestamps();
         });
     }
 ```
@@ -1278,6 +1280,8 @@ php artisan make:model Type -a
 class Type extends Model
 {
     use Uuids, HasFactory;
+    
+    public $timestamps = false;
 
     protected $fillable = [
         'type',
@@ -1293,7 +1297,6 @@ class Type extends Model
 		Schema::create('types', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('type', 30)->unique;
-            $table->timestamps();
         });
     }
 ```
@@ -1596,7 +1599,8 @@ class Estext extends Model
 ```php
     public function run()
     {
-        Text::factory()->times(10)->create();
+        Estext::factory()->times(10)->create();
+
     }
 ```
 
@@ -1668,20 +1672,17 @@ class Translation extends Model
 ```php
     public function definition()
     {
-        $now = new DateTime();
         $languageIds = Language::all()->pluck('id')->toArray();
         $textIds = Text::all()->pluck('id')->toArray();
         $userIds = User::all()->pluck('id')->toArray();
 
         return [
-            'date'=>$now,
             'hit_rate'=>$this->faker->randomFloat(2, 0, 1),
             'text'=>$this->faker->sentence(),
             'language_id'=>$this->faker->randomElement($languageIds), 
             'text_id'=>$this->faker->randomElement($textIds),
             'user_id'=>$this->faker->randomElement($userIds), 
-        ];
-    }
+        
 ```
 
 ##### Seeder
