@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             RoleUserSeeder::class,
             AuthorSeeder::class,
             // SourceSeeder::class,
-            // TextSeeder::class,
+            TextSeeder::class,
             // AuthorSourceSeeder::class,
             // EsTextSeeder::class,
             // StudentSeeder::class,
