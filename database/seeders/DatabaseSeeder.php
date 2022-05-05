@@ -14,6 +14,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            CountrySeeder::class,
+            LanguageSeeder::class,
+            TypeSeeder::class,
+            UserSeeder::class,
+            CefrSeeder::class,
+            AuthorSeeder::class,
+            SourceSeeder::class,
+            TextSeeder::class,
+            AuthorSourceSeeder::class,
+            EsTextSeeder::class,
+            StudentSeeder::class,
+            NativeSeeder::class,
+            TranslationSeeder::class,
+            TranslationUserSeeder::class,
+        ]);
     }
 }

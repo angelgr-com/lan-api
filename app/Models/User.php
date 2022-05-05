@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Uuids;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Uuids, HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -46,5 +47,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    
+    public function users(){
+        // One user can have many roles
+        return $this->belongsToMany(User::class, 'role_users');
+        // One user is able to review many translations
+        return $this->belongsToMany(User::class, 'translation__users');
+        // One user is able to learn many languages
+        return $this->belongsToMany(User::class, 'learn__users');
+        // One user is able to speak many languages
+        return $this->belongsToMany(User::class, 'speak__users');
+    }
 }
