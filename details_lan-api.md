@@ -347,11 +347,7 @@ class User extends Authenticatable
 
 #### User
 
-Generate model, migration, factory and seeder:
-
-```
-
-```
+Edit model, migration, factory and generate seeder:
 
 ##### Model
 
@@ -404,14 +400,14 @@ public function up()
 ```php
 public function definition()
     {
-        $countryIds = Country::all()->pluck('id')->toArray();
+        // $countryIds = Country::all()->pluck('id')->toArray();
 
         return [
-            'first_name' => $this->faker->name(),
-            'last_name' => $this->faker->name(),
-            'country_id' => $this->faker->randomElement($countryIds),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            // 'country_id' => $this->faker->randomElement($countryIds),
             'profile_picture' => $this->faker->url(),
-            'username' => $this->faker->name(),
+            'username' => $this->faker->username(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -444,10 +440,15 @@ php artisan make:model Country -a
 ##### Model
 
 ```php
-protected $fillable = [
-    'name',
-    'code',
-];
+class Country extends Model
+{
+    use Uuids, HasFactory;
+
+    protected $fillable = [
+        'name',
+        'code',
+    ];
+}
 ```
 
 ##### Migration
@@ -457,8 +458,8 @@ public function up()
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('code');
+            $table->string('name', 50)->unique;
+            $table->string('code', 2)->unique;
             $table->timestamps();
         });
     }
@@ -475,264 +476,284 @@ public function up()
 https://www.nicesnippets.com/blog/how-to-get-country-list-in-laravel
 
 ```php
-public function run()
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Text;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use DateTime;
+
+class CountrySeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
-        DB::table('countries')->truncate();
- 
+        $now = new DateTime();
+        $now = $now->format('Y-m-d H:i:s');
+
         $countries = [
-            ['name' => 'Afghanistan', 'code' => 'AF'],
-            ['name' => 'Åland Islands', 'code' => 'AX'],
-            ['name' => 'Albania', 'code' => 'AL'],
-            ['name' => 'Algeria', 'code' => 'DZ'],
-            ['name' => 'American Samoa', 'code' => 'AS'],
-            ['name' => 'Andorra', 'code' => 'AD'],
-            ['name' => 'Angola', 'code' => 'AO'],
-            ['name' => 'Anguilla', 'code' => 'AI'],
-            ['name' => 'Antarctica', 'code' => 'AQ'],
-            ['name' => 'Antigua and Barbuda', 'code' => 'AG'],
-            ['name' => 'Argentina', 'code' => 'AR'],
-            ['name' => 'Armenia', 'code' => 'AM'],
-            ['name' => 'Aruba', 'code' => 'AW'],
-            ['name' => 'Australia', 'code' => 'AU'],
-            ['name' => 'Austria', 'code' => 'AT'],
-            ['name' => 'Azerbaijan', 'code' => 'AZ'],
-            ['name' => 'Bahamas', 'code' => 'BS'],
-            ['name' => 'Bahrain', 'code' => 'BH'],
-            ['name' => 'Bangladesh', 'code' => 'BD'],
-            ['name' => 'Barbados', 'code' => 'BB'],
-            ['name' => 'Belarus', 'code' => 'BY'],
-            ['name' => 'Belgium', 'code' => 'BE'],
-            ['name' => 'Belize', 'code' => 'BZ'],
-            ['name' => 'Benin', 'code' => 'BJ'],
-            ['name' => 'Bermuda', 'code' => 'BM'],
-            ['name' => 'Bhutan', 'code' => 'BT'],
-            ['name' => 'Bolivia, Plurinational State of', 'code' => 'BO'],
-            ['name' => 'Bonaire, Sint Eustatius and Saba', 'code' => 'BQ'],
-            ['name' => 'Bosnia and Herzegovina', 'code' => 'BA'],
-            ['name' => 'Botswana', 'code' => 'BW'],
-            ['name' => 'Bouvet Island', 'code' => 'BV'],
-            ['name' => 'Brazil', 'code' => 'BR'],
-            ['name' => 'British Indian Ocean Territory', 'code' => 'IO'],
-            ['name' => 'Brunei Darussalam', 'code' => 'BN'],
-            ['name' => 'Bulgaria', 'code' => 'BG'],
-            ['name' => 'Burkina Faso', 'code' => 'BF'],
-            ['name' => 'Burundi', 'code' => 'BI'],
-            ['name' => 'Cambodia', 'code' => 'KH'],
-            ['name' => 'Cameroon', 'code' => 'CM'],
-            ['name' => 'Canada', 'code' => 'CA'],
-            ['name' => 'Cape Verde', 'code' => 'CV'],
-            ['name' => 'Cayman Islands', 'code' => 'KY'],
-            ['name' => 'Central African Republic', 'code' => 'CF'],
-            ['name' => 'Chad', 'code' => 'TD'],
-            ['name' => 'Chile', 'code' => 'CL'],
-            ['name' => 'China', 'code' => 'CN'],
-            ['name' => 'Christmas Island', 'code' => 'CX'],
-            ['name' => 'Cocos (Keeling) Islands', 'code' => 'CC'],
-            ['name' => 'Colombia', 'code' => 'CO'],
-            ['name' => 'Comoros', 'code' => 'KM'],
-            ['name' => 'Congo', 'code' => 'CG'],
-            ['name' => 'Congo, the Democratic Republic of the', 'code' => 'CD'],
-            ['name' => 'Cook Islands', 'code' => 'CK'],
-            ['name' => 'Costa Rica', 'code' => 'CR'],
-            ['name' => 'Côte d\'Ivoire', 'code' => 'CI'],
-            ['name' => 'Croatia', 'code' => 'HR'],
-            ['name' => 'Cuba', 'code' => 'CU'],
-            ['name' => 'Curaçao', 'code' => 'CW'],
-            ['name' => 'Cyprus', 'code' => 'CY'],
-            ['name' => 'Czech Republic', 'code' => 'CZ'],
-            ['name' => 'Denmark', 'code' => 'DK'],
-            ['name' => 'Djibouti', 'code' => 'DJ'],
-            ['name' => 'Dominica', 'code' => 'DM'],
-            ['name' => 'Dominican Republic', 'code' => 'DO'],
-            ['name' => 'Ecuador', 'code' => 'EC'],
-            ['name' => 'Egypt', 'code' => 'EG'],
-            ['name' => 'El Salvador', 'code' => 'SV'],
-            ['name' => 'Equatorial Guinea', 'code' => 'GQ'],
-            ['name' => 'Eritrea', 'code' => 'ER'],
-            ['name' => 'Estonia', 'code' => 'EE'],
-            ['name' => 'Ethiopia', 'code' => 'ET'],
-            ['name' => 'Falkland Islands (Malvinas)', 'code' => 'FK'],
-            ['name' => 'Faroe Islands', 'code' => 'FO'],
-            ['name' => 'Fiji', 'code' => 'FJ'],
-            ['name' => 'Finland', 'code' => 'FI'],
-            ['name' => 'France', 'code' => 'FR'],
-            ['name' => 'French Guiana', 'code' => 'GF'],
-            ['name' => 'French Polynesia', 'code' => 'PF'],
-            ['name' => 'French Southern Territories', 'code' => 'TF'],
-            ['name' => 'Gabon', 'code' => 'GA'],
-            ['name' => 'Gambia', 'code' => 'GM'],
-            ['name' => 'Georgia', 'code' => 'GE'],
-            ['name' => 'Germany', 'code' => 'DE'],
-            ['name' => 'Ghana', 'code' => 'GH'],
-            ['name' => 'Gibraltar', 'code' => 'GI'],
-            ['name' => 'Greece', 'code' => 'GR'],
-            ['name' => 'Greenland', 'code' => 'GL'],
-            ['name' => 'Grenada', 'code' => 'GD'],
-            ['name' => 'Guadeloupe', 'code' => 'GP'],
-            ['name' => 'Guam', 'code' => 'GU'],
-            ['name' => 'Guatemala', 'code' => 'GT'],
-            ['name' => 'Guernsey', 'code' => 'GG'],
-            ['name' => 'Guinea', 'code' => 'GN'],
-            ['name' => 'Guinea-Bissau', 'code' => 'GW'],
-            ['name' => 'Guyana', 'code' => 'GY'],
-            ['name' => 'Haiti', 'code' => 'HT'],
-            ['name' => 'Heard Island and McDonald Mcdonald Islands', 'code' => 'HM'],
-            ['name' => 'Holy See (Vatican City State)', 'code' => 'VA'],
-            ['name' => 'Honduras', 'code' => 'HN'],
-            ['name' => 'Hong Kong', 'code' => 'HK'],
-            ['name' => 'Hungary', 'code' => 'HU'],
-            ['name' => 'Iceland', 'code' => 'IS'],
-            ['name' => 'India', 'code' => 'IN'],
-            ['name' => 'Indonesia', 'code' => 'ID'],
-            ['name' => 'Iran, Islamic Republic of', 'code' => 'IR'],
-            ['name' => 'Iraq', 'code' => 'IQ'],
-            ['name' => 'Ireland', 'code' => 'IE'],
-            ['name' => 'Isle of Man', 'code' => 'IM'],
-            ['name' => 'Israel', 'code' => 'IL'],
-            ['name' => 'Italy', 'code' => 'IT'],
-            ['name' => 'Jamaica', 'code' => 'JM'],
-            ['name' => 'Japan', 'code' => 'JP'],
-            ['name' => 'Jersey', 'code' => 'JE'],
-            ['name' => 'Jordan', 'code' => 'JO'],
-            ['name' => 'Kazakhstan', 'code' => 'KZ'],
-            ['name' => 'Kenya', 'code' => 'KE'],
-            ['name' => 'Kiribati', 'code' => 'KI'],
-            ['name' => 'Korea, Democratic People\'s Republic of', 'code' => 'KP'],
-            ['name' => 'Korea, Republic of', 'code' => 'KR'],
-            ['name' => 'Kuwait', 'code' => 'KW'],
-            ['name' => 'Kyrgyzstan', 'code' => 'KG'],
-            ['name' => 'Lao People\'s Democratic Republic', 'code' => 'LA'],
-            ['name' => 'Latvia', 'code' => 'LV'],
-            ['name' => 'Lebanon', 'code' => 'LB'],
-            ['name' => 'Lesotho', 'code' => 'LS'],
-            ['name' => 'Liberia', 'code' => 'LR'],
-            ['name' => 'Libya', 'code' => 'LY'],
-            ['name' => 'Liechtenstein', 'code' => 'LI'],
-            ['name' => 'Lithuania', 'code' => 'LT'],
-            ['name' => 'Luxembourg', 'code' => 'LU'],
-            ['name' => 'Macao', 'code' => 'MO'],
-            ['name' => 'Macedonia, the Former Yugoslav Republic of', 'code' => 'MK'],
-            ['name' => 'Madagascar', 'code' => 'MG'],
-            ['name' => 'Malawi', 'code' => 'MW'],
-            ['name' => 'Malaysia', 'code' => 'MY'],
-            ['name' => 'Maldives', 'code' => 'MV'],
-            ['name' => 'Mali', 'code' => 'ML'],
-            ['name' => 'Malta', 'code' => 'MT'],
-            ['name' => 'Marshall Islands', 'code' => 'MH'],
-            ['name' => 'Martinique', 'code' => 'MQ'],
-            ['name' => 'Mauritania', 'code' => 'MR'],
-            ['name' => 'Mauritius', 'code' => 'MU'],
-            ['name' => 'Mayotte', 'code' => 'YT'],
-            ['name' => 'Mexico', 'code' => 'MX'],
-            ['name' => 'Micronesia, Federated States of', 'code' => 'FM'],
-            ['name' => 'Moldova, Republic of', 'code' => 'MD'],
-            ['name' => 'Monaco', 'code' => 'MC'],
-            ['name' => 'Mongolia', 'code' => 'MN'],
-            ['name' => 'Montenegro', 'code' => 'ME'],
-            ['name' => 'Montserrat', 'code' => 'MS'],
-            ['name' => 'Morocco', 'code' => 'MA'],
-            ['name' => 'Mozambique', 'code' => 'MZ'],
-            ['name' => 'Myanmar', 'code' => 'MM'],
-            ['name' => 'Namibia', 'code' => 'NA'],
-            ['name' => 'Nauru', 'code' => 'NR'],
-            ['name' => 'Nepal', 'code' => 'NP'],
-            ['name' => 'Netherlands', 'code' => 'NL'],
-            ['name' => 'New Caledonia', 'code' => 'NC'],
-            ['name' => 'New Zealand', 'code' => 'NZ'],
-            ['name' => 'Nicaragua', 'code' => 'NI'],
-            ['name' => 'Niger', 'code' => 'NE'],
-            ['name' => 'Nigeria', 'code' => 'NG'],
-            ['name' => 'Niue', 'code' => 'NU'],
-            ['name' => 'Norfolk Island', 'code' => 'NF'],
-            ['name' => 'Northern Mariana Islands', 'code' => 'MP'],
-            ['name' => 'Norway', 'code' => 'NO'],
-            ['name' => 'Oman', 'code' => 'OM'],
-            ['name' => 'Pakistan', 'code' => 'PK'],
-            ['name' => 'Palau', 'code' => 'PW'],
-            ['name' => 'Palestine, State of', 'code' => 'PS'],
-            ['name' => 'Panama', 'code' => 'PA'],
-            ['name' => 'Papua New Guinea', 'code' => 'PG'],
-            ['name' => 'Paraguay', 'code' => 'PY'],
-            ['name' => 'Peru', 'code' => 'PE'],
-            ['name' => 'Philippines', 'code' => 'PH'],
-            ['name' => 'Pitcairn', 'code' => 'PN'],
-            ['name' => 'Poland', 'code' => 'PL'],
-            ['name' => 'Portugal', 'code' => 'PT'],
-            ['name' => 'Puerto Rico', 'code' => 'PR'],
-            ['name' => 'Qatar', 'code' => 'QA'],
-            ['name' => 'Réunion', 'code' => 'RE'],
-            ['name' => 'Romania', 'code' => 'RO'],
-            ['name' => 'Russian Federation', 'code' => 'RU'],
-            ['name' => 'Rwanda', 'code' => 'RW'],
-            ['name' => 'Saint Barthélemy', 'code' => 'BL'],
-            ['name' => 'Saint Helena, Ascension and Tristan da Cunha', 'code' => 'SH'],
-            ['name' => 'Saint Kitts and Nevis', 'code' => 'KN'],
-            ['name' => 'Saint Lucia', 'code' => 'LC'],
-            ['name' => 'Saint Martin (French part)', 'code' => 'MF'],
-            ['name' => 'Saint Pierre and Miquelon', 'code' => 'PM'],
-            ['name' => 'Saint Vincent and the Grenadines', 'code' => 'VC'],
-            ['name' => 'Samoa', 'code' => 'WS'],
-            ['name' => 'San Marino', 'code' => 'SM'],
-            ['name' => 'Sao Tome and Principe', 'code' => 'ST'],
-            ['name' => 'Saudi Arabia', 'code' => 'SA'],
-            ['name' => 'Senegal', 'code' => 'SN'],
-            ['name' => 'Serbia', 'code' => 'RS'],
-            ['name' => 'Seychelles', 'code' => 'SC'],
-            ['name' => 'Sierra Leone', 'code' => 'SL'],
-            ['name' => 'Singapore', 'code' => 'SG'],
-            ['name' => 'Sint Maarten (Dutch part)', 'code' => 'SX'],
-            ['name' => 'Slovakia', 'code' => 'SK'],
-            ['name' => 'Slovenia', 'code' => 'SI'],
-            ['name' => 'Solomon Islands', 'code' => 'SB'],
-            ['name' => 'Somalia', 'code' => 'SO'],
-            ['name' => 'South Africa', 'code' => 'ZA'],
-            ['name' => 'South Georgia and the South Sandwich Islands', 'code' => 'GS'],
-            ['name' => 'South Sudan', 'code' => 'SS'],
-            ['name' => 'Spain', 'code' => 'ES'],
-            ['name' => 'Sri Lanka', 'code' => 'LK'],
-            ['name' => 'Sudan', 'code' => 'SD'],
-            ['name' => 'Suriname', 'code' => 'SR'],
-            ['name' => 'Svalbard and Jan Mayen', 'code' => 'SJ'],
-            ['name' => 'Swaziland', 'code' => 'SZ'],
-            ['name' => 'Sweden', 'code' => 'SE'],
-            ['name' => 'Switzerland', 'code' => 'CH'],
-            ['name' => 'Syrian Arab Republic', 'code' => 'SY'],
-            ['name' => 'Taiwan', 'code' => 'TW'],
-            ['name' => 'Tajikistan', 'code' => 'TJ'],
-            ['name' => 'Tanzania, United Republic of', 'code' => 'TZ'],
-            ['name' => 'Thailand', 'code' => 'TH'],
-            ['name' => 'Timor-Leste', 'code' => 'TL'],
-            ['name' => 'Togo', 'code' => 'TG'],
-            ['name' => 'Tokelau', 'code' => 'TK'],
-            ['name' => 'Tonga', 'code' => 'TO'],
-            ['name' => 'Trinidad and Tobago', 'code' => 'TT'],
-            ['name' => 'Tunisia', 'code' => 'TN'],
-            ['name' => 'Turkey', 'code' => 'TR'],
-            ['name' => 'Turkmenistan', 'code' => 'TM'],
-            ['name' => 'Turks and Caicos Islands', 'code' => 'TC'],
-            ['name' => 'Tuvalu', 'code' => 'TV'],
-            ['name' => 'Uganda', 'code' => 'UG'],
-            ['name' => 'Ukraine', 'code' => 'UA'],
-            ['name' => 'United Arab Emirates', 'code' => 'AE'],
-            ['name' => 'United Kingdom', 'code' => 'GB'],
-            ['name' => 'United States', 'code' => 'US'],
-            ['name' => 'United States Minor Outlying Islands', 'code' => 'UM'],
-            ['name' => 'Uruguay', 'code' => 'UY'],
-            ['name' => 'Uzbekistan', 'code' => 'UZ'],
-            ['name' => 'Vanuatu', 'code' => 'VU'],
-            ['name' => 'Venezuela, Bolivarian Republic of', 'code' => 'VE'],
-            ['name' => 'Viet Nam', 'code' => 'VN'],
-            ['name' => 'Virgin Islands, British', 'code' => 'VG'],
-            ['name' => 'Virgin Islands, U.S.', 'code' => 'VI'],
-            ['name' => 'Wallis and Futuna', 'code' => 'WF'],
-            ['name' => 'Western Sahara', 'code' => 'EH'],
-            ['name' => 'Yemen', 'code' => 'YE'],
-            ['name' => 'Zambia', 'code' => 'ZM'],
-            ['name' => 'Zimbabwe', 'code' => 'ZW'],
+            ['code' => 'AF', 'id' => Str::uuid(), 'name' => 'Afghanistan'],
+            ['code' => 'AX', 'id' => Str::uuid(), 'name' => 'Aland Islands'],
+            ['code' => 'AL', 'id' => Str::uuid(), 'name' => 'Albania'],
+            ['code' => 'DZ', 'id' => Str::uuid(), 'name' => 'Algeria'],
+            ['code' => 'AS', 'id' => Str::uuid(), 'name' => 'American Samoa'],
+            ['code' => 'AD', 'id' => Str::uuid(), 'name' => 'Andorra'],
+            ['code' => 'AO', 'id' => Str::uuid(), 'name' => 'Angola'],
+            ['code' => 'AI', 'id' => Str::uuid(), 'name' => 'Anguilla'],
+            ['code' => 'AQ', 'id' => Str::uuid(), 'name' => 'Antarctica'],
+            ['code' => 'AG', 'id' => Str::uuid(), 'name' => 'Antigua and Barbuda'],
+            ['code' => 'AR', 'id' => Str::uuid(), 'name' => 'Argentina'],
+            ['code' => 'AM', 'id' => Str::uuid(), 'name' => 'Armenia'],
+            ['code' => 'AW', 'id' => Str::uuid(), 'name' => 'Aruba'],
+            ['code' => 'AU', 'id' => Str::uuid(), 'name' => 'Australia'],
+            ['code' => 'AT', 'id' => Str::uuid(), 'name' => 'Austria'],
+            ['code' => 'AZ', 'id' => Str::uuid(), 'name' => 'Azerbaijan'],
+            ['code' => 'BS', 'id' => Str::uuid(), 'name' => 'Bahamas'],
+            ['code' => 'BH', 'id' => Str::uuid(), 'name' => 'Bahrain'],
+            ['code' => 'BD', 'id' => Str::uuid(), 'name' => 'Bangladesh'],
+            ['code' => 'BB', 'id' => Str::uuid(), 'name' => 'Barbados'],
+            ['code' => 'BY', 'id' => Str::uuid(), 'name' => 'Belarus'],
+            ['code' => 'BE', 'id' => Str::uuid(), 'name' => 'Belgium'],
+            ['code' => 'BZ', 'id' => Str::uuid(), 'name' => 'Belize'],
+            ['code' => 'BJ', 'id' => Str::uuid(), 'name' => 'Benin'],
+            ['code' => 'BM', 'id' => Str::uuid(), 'name' => 'Bermuda'],
+            ['code' => 'BT', 'id' => Str::uuid(), 'name' => 'Bhutan'],
+            ['code' => 'BO', 'id' => Str::uuid(), 'name' => 'Bolivia, Plurinational State of'],
+            ['code' => 'BQ', 'id' => Str::uuid(), 'name' => 'Bonaire, Sint Eustatius and Saba'],
+            ['code' => 'BA', 'id' => Str::uuid(), 'name' => 'Bosnia and Herzegovina'],
+            ['code' => 'BW', 'id' => Str::uuid(), 'name' => 'Botswana'],
+            ['code' => 'BV', 'id' => Str::uuid(), 'name' => 'Bouvet Island'],
+            ['code' => 'BR', 'id' => Str::uuid(), 'name' => 'Brazil'],
+            ['code' => 'IO', 'id' => Str::uuid(), 'name' => 'British Indian Ocean Territory'],
+            ['code' => 'BN', 'id' => Str::uuid(), 'name' => 'Brunei Darussalam'],
+            ['code' => 'BG', 'id' => Str::uuid(), 'name' => 'Bulgaria'],
+            ['code' => 'BF', 'id' => Str::uuid(), 'name' => 'Burkina Faso'],
+            ['code' => 'BI', 'id' => Str::uuid(), 'name' => 'Burundi'],
+            ['code' => 'KH', 'id' => Str::uuid(), 'name' => 'Cambodia'],
+            ['code' => 'CM', 'id' => Str::uuid(), 'name' => 'Cameroon'],
+            ['code' => 'CA', 'id' => Str::uuid(), 'name' => 'Canada'],
+            ['code' => 'CV', 'id' => Str::uuid(), 'name' => 'Cape Verde'],
+            ['code' => 'KY', 'id' => Str::uuid(), 'name' => 'Cayman Islands'],
+            ['code' => 'CF', 'id' => Str::uuid(), 'name' => 'Central African Republic'],
+            ['code' => 'TD', 'id' => Str::uuid(), 'name' => 'Chad'],
+            ['code' => 'CL', 'id' => Str::uuid(), 'name' => 'Chile'],
+            ['code' => 'CN', 'id' => Str::uuid(), 'name' => 'China'],
+            ['code' => 'CX', 'id' => Str::uuid(), 'name' => 'Christmas Island'],
+            ['code' => 'CC', 'id' => Str::uuid(), 'name' => 'Cocos (Keeling) Islands'],
+            ['code' => 'CO', 'id' => Str::uuid(), 'name' => 'Colombia'],
+            ['code' => 'KM', 'id' => Str::uuid(), 'name' => 'Comoros'],
+            ['code' => 'CG', 'id' => Str::uuid(), 'name' => 'Congo'],
+            ['code' => 'CD', 'id' => Str::uuid(), 'name' => 'Congo, the Democratic Republic of the'],
+            ['code' => 'CK', 'id' => Str::uuid(), 'name' => 'Cook Islands'],
+            ['code' => 'CR', 'id' => Str::uuid(), 'name' => 'Costa Rica'],
+            ['code' => 'CI', 'id' => Str::uuid(), 'name' => 'Côte d\'Ivoire'],
+            ['code' => 'HR', 'id' => Str::uuid(), 'name' => 'Croatia'],
+            ['code' => 'CU', 'id' => Str::uuid(), 'name' => 'Cuba'],
+            ['code' => 'CW', 'id' => Str::uuid(), 'name' => 'Curaçao'],
+            ['code' => 'CY', 'id' => Str::uuid(), 'name' => 'Cyprus'],
+            ['code' => 'CZ', 'id' => Str::uuid(), 'name' => 'Czech Republic'],
+            ['code' => 'DK', 'id' => Str::uuid(), 'name' => 'Denmark'],
+            ['code' => 'DJ', 'id' => Str::uuid(), 'name' => 'Djibouti'],
+            ['code' => 'DM', 'id' => Str::uuid(), 'name' => 'Dominica'],
+            ['code' => 'DO', 'id' => Str::uuid(), 'name' => 'Dominican Republic'],
+            ['code' => 'EC', 'id' => Str::uuid(), 'name' => 'Ecuador'],
+            ['code' => 'EG', 'id' => Str::uuid(), 'name' => 'Egypt'],
+            ['code' => 'SV', 'id' => Str::uuid(), 'name' => 'El Salvador'],
+            ['code' => 'GQ', 'id' => Str::uuid(), 'name' => 'Equatorial Guinea'],
+            ['code' => 'ER', 'id' => Str::uuid(), 'name' => 'Eritrea'],
+            ['code' => 'EE', 'id' => Str::uuid(), 'name' => 'Estonia'],
+            ['code' => 'ET', 'id' => Str::uuid(), 'name' => 'Ethiopia'],
+            ['code' => 'FK', 'id' => Str::uuid(), 'name' => 'Falkland Islands (Malvinas)'],
+            ['code' => 'FO', 'id' => Str::uuid(), 'name' => 'Faroe Islands'],
+            ['code' => 'FJ', 'id' => Str::uuid(), 'name' => 'Fiji'],
+            ['code' => 'FI', 'id' => Str::uuid(), 'name' => 'Finland'],
+            ['code' => 'FR', 'id' => Str::uuid(), 'name' => 'France'],
+            ['code' => 'GF', 'id' => Str::uuid(), 'name' => 'French Guiana'],
+            ['code' => 'PF', 'id' => Str::uuid(), 'name' => 'French Polynesia'],
+            ['code' => 'TF', 'id' => Str::uuid(), 'name' => 'French Southern Territories'],
+            ['code' => 'GA', 'id' => Str::uuid(), 'name' => 'Gabon'],
+            ['code' => 'GM', 'id' => Str::uuid(), 'name' => 'Gambia'],
+            ['code' => 'GE', 'id' => Str::uuid(), 'name' => 'Georgia'],
+            ['code' => 'DE', 'id' => Str::uuid(), 'name' => 'Germany'],
+            ['code' => 'GH', 'id' => Str::uuid(), 'name' => 'Ghana'],
+            ['code' => 'GI', 'id' => Str::uuid(), 'name' => 'Gibraltar'],
+            ['code' => 'GR', 'id' => Str::uuid(), 'name' => 'Greece'],
+            ['code' => 'GL', 'id' => Str::uuid(), 'name' => 'Greenland'],
+            ['code' => 'GD', 'id' => Str::uuid(), 'name' => 'Grenada'],
+            ['code' => 'GP', 'id' => Str::uuid(), 'name' => 'Guadeloupe'],
+            ['code' => 'GU', 'id' => Str::uuid(), 'name' => 'Guam'],
+            ['code' => 'GT', 'id' => Str::uuid(), 'name' => 'Guatemala'],
+            ['code' => 'GG', 'id' => Str::uuid(), 'name' => 'Guernsey'],
+            ['code' => 'GN', 'id' => Str::uuid(), 'name' => 'Guinea'],
+            ['code' => 'GW', 'id' => Str::uuid(), 'name' => 'Guinea-Bissau'],
+            ['code' => 'GY', 'id' => Str::uuid(), 'name' => 'Guyana'],
+            ['code' => 'HT', 'id' => Str::uuid(), 'name' => 'Haiti'],
+            ['code' => 'HM', 'id' => Str::uuid(), 'name' => 'Heard Island and McDonald Mcdonald Islands'],
+            ['code' => 'VA', 'id' => Str::uuid(), 'name' => 'Holy See (Vatican City State)'],
+            ['code' => 'HN', 'id' => Str::uuid(), 'name' => 'Honduras'],
+            ['code' => 'HK', 'id' => Str::uuid(), 'name' => 'Hong Kong'],
+            ['code' => 'HU', 'id' => Str::uuid(), 'name' => 'Hungary'],
+            ['code' => 'IS', 'id' => Str::uuid(), 'name' => 'Iceland'],
+            ['code' => 'IN', 'id' => Str::uuid(), 'name' => 'India'],
+            ['code' => 'ID', 'id' => Str::uuid(), 'name' => 'Indonesia'],
+            ['code' => 'IR', 'id' => Str::uuid(), 'name' => 'Iran, Islamic Republic of'],
+            ['code' => 'IQ', 'id' => Str::uuid(), 'name' => 'Iraq'],
+            ['code' => 'IE', 'id' => Str::uuid(), 'name' => 'Ireland'],
+            ['code' => 'IM', 'id' => Str::uuid(), 'name' => 'Isle of Man'],
+            ['code' => 'IL', 'id' => Str::uuid(), 'name' => 'Israel'],
+            ['code' => 'IT', 'id' => Str::uuid(), 'name' => 'Italy'],
+            ['code' => 'JM', 'id' => Str::uuid(), 'name' => 'Jamaica'],
+            ['code' => 'JP', 'id' => Str::uuid(), 'name' => 'Japan'],
+            ['code' => 'JE', 'id' => Str::uuid(), 'name' => 'Jersey'],
+            ['code' => 'JO', 'id' => Str::uuid(), 'name' => 'Jordan'],
+            ['code' => 'KZ', 'id' => Str::uuid(), 'name' => 'Kazakhstan'],
+            ['code' => 'KE', 'id' => Str::uuid(), 'name' => 'Kenya'],
+            ['code' => 'KI', 'id' => Str::uuid(), 'name' => 'Kiribati'],
+            ['code' => 'KP', 'id' => Str::uuid(), 'name' => 'Korea, Democratic People\'s Republic of'],
+            ['code' => 'KR', 'id' => Str::uuid(), 'name' => 'Korea, Republic of'],
+            ['code' => 'KW', 'id' => Str::uuid(), 'name' => 'Kuwait'],
+            ['code' => 'KG', 'id' => Str::uuid(), 'name' => 'Kyrgyzstan'],
+            ['code' => 'LA', 'id' => Str::uuid(), 'name' => 'Lao People\'s Democratic Republic'],
+            ['code' => 'LV', 'id' => Str::uuid(), 'name' => 'Latvia'],
+            ['code' => 'LB', 'id' => Str::uuid(), 'name' => 'Lebanon'],
+            ['code' => 'LS', 'id' => Str::uuid(), 'name' => 'Lesotho'],
+            ['code' => 'LR', 'id' => Str::uuid(), 'name' => 'Liberia'],
+            ['code' => 'LY', 'id' => Str::uuid(), 'name' => 'Libya'],
+            ['code' => 'LI', 'id' => Str::uuid(), 'name' => 'Liechtenstein'],
+            ['code' => 'LT', 'id' => Str::uuid(), 'name' => 'Lithuania'],
+            ['code' => 'LU', 'id' => Str::uuid(), 'name' => 'Luxembourg'],
+            ['code' => 'MO', 'id' => Str::uuid(), 'name' => 'Macao'],
+            ['code' => 'MK', 'id' => Str::uuid(), 'name' => 'Macedonia, the Former Yugoslav Republic of'],
+            ['code' => 'MW', 'id' => Str::uuid(), 'name' => 'Malawi'],
+            ['code' => 'MG', 'id' => Str::uuid(), 'name' => 'Madagascar'],
+            ['code' => 'MY', 'id' => Str::uuid(), 'name' => 'Malaysia'],
+            ['code' => 'MV', 'id' => Str::uuid(), 'name' => 'Maldives'],
+            ['code' => 'ML', 'id' => Str::uuid(), 'name' => 'Mali'],
+            ['code' => 'MT', 'id' => Str::uuid(), 'name' => 'Malta'],
+            ['code' => 'MH', 'id' => Str::uuid(), 'name' => 'Marshall Islands'],
+            ['code' => 'MQ', 'id' => Str::uuid(), 'name' => 'Martinique'],
+            ['code' => 'MR', 'id' => Str::uuid(), 'name' => 'Mauritania'],
+            ['code' => 'MU', 'id' => Str::uuid(), 'name' => 'Mauritius'],
+            ['code' => 'YT', 'id' => Str::uuid(), 'name' => 'Mayotte'],
+            ['code' => 'MX', 'id' => Str::uuid(), 'name' => 'Mexico'],
+            ['code' => 'FM', 'id' => Str::uuid(), 'name' => 'Micronesia, Federated States of'],
+            ['code' => 'MD', 'id' => Str::uuid(), 'name' => 'Moldova, Republic of'],
+            ['code' => 'MC', 'id' => Str::uuid(), 'name' => 'Monaco'],
+            ['code' => 'MN', 'id' => Str::uuid(), 'name' => 'Mongolia'],
+            ['code' => 'ME', 'id' => Str::uuid(), 'name' => 'Montenegro'],
+            ['code' => 'MS', 'id' => Str::uuid(), 'name' => 'Montserrat'],
+            ['code' => 'MA', 'id' => Str::uuid(), 'name' => 'Morocco'],
+            ['code' => 'MZ', 'id' => Str::uuid(), 'name' => 'Mozambique'],
+            ['code' => 'MM', 'id' => Str::uuid(), 'name' => 'Myanmar'],
+            ['code' => 'NA', 'id' => Str::uuid(), 'name' => 'Namibia'],
+            ['code' => 'NR', 'id' => Str::uuid(), 'name' => 'Nauru'],
+            ['code' => 'NP', 'id' => Str::uuid(), 'name' => 'Nepal'],
+            ['code' => 'NL', 'id' => Str::uuid(), 'name' => 'Netherlands'],
+            ['code' => 'NC', 'id' => Str::uuid(), 'name' => 'New Caledonia'],
+            ['code' => 'NZ', 'id' => Str::uuid(), 'name' => 'New Zealand'],
+            ['code' => 'NI', 'id' => Str::uuid(), 'name' => 'Nicaragua'],
+            ['code' => 'NE', 'id' => Str::uuid(), 'name' => 'Niger'],
+            ['code' => 'NG', 'id' => Str::uuid(), 'name' => 'Nigeria'],
+            ['code' => 'NU', 'id' => Str::uuid(), 'name' => 'Niue'],
+            ['code' => 'NF', 'id' => Str::uuid(), 'name' => 'Norfolk Island'],
+            ['code' => 'MP', 'id' => Str::uuid(), 'name' => 'Northern Mariana Islands'],
+            ['code' => 'NO', 'id' => Str::uuid(), 'name' => 'Norway'],
+            ['code' => 'OM', 'id' => Str::uuid(), 'name' => 'Oman'],
+            ['code' => 'PK', 'id' => Str::uuid(), 'name' => 'Pakistan'],
+            ['code' => 'PW', 'id' => Str::uuid(), 'name' => 'Palau'],
+            ['code' => 'PS', 'id' => Str::uuid(), 'name' => 'Palestine, State of'],
+            ['code' => 'PA', 'id' => Str::uuid(), 'name' => 'Panama'],
+            ['code' => 'PG', 'id' => Str::uuid(), 'name' => 'Papua New Guinea'],
+            ['code' => 'PY', 'id' => Str::uuid(), 'name' => 'Paraguay'],
+            ['code' => 'PE', 'id' => Str::uuid(), 'name' => 'Peru'],
+            ['code' => 'PH', 'id' => Str::uuid(), 'name' => 'Philippines'],
+            ['code' => 'PN', 'id' => Str::uuid(), 'name' => 'Pitcairn'],
+            ['code' => 'PL', 'id' => Str::uuid(), 'name' => 'Poland'],
+            ['code' => 'PT', 'id' => Str::uuid(), 'name' => 'Portugal'],
+            ['code' => 'PR', 'id' => Str::uuid(), 'name' => 'Puerto Rico'],
+            ['code' => 'QA', 'id' => Str::uuid(), 'name' => 'Qatar'],
+            ['code' => 'RE', 'id' => Str::uuid(), 'name' => 'Réunion'],
+            ['code' => 'RO', 'id' => Str::uuid(), 'name' => 'Romania'],
+            ['code' => 'RU', 'id' => Str::uuid(), 'name' => 'Russian Federation'],
+            ['code' => 'RW', 'id' => Str::uuid(), 'name' => 'Rwanda'],
+            ['code' => 'BL', 'id' => Str::uuid(), 'name' => 'Saint Barthélemy'],
+            ['code' => 'SH', 'id' => Str::uuid(), 'name' => 'Saint Helena, Ascension and Tristan da Cunha'],
+            ['code' => 'KN', 'id' => Str::uuid(), 'name' => 'Saint Kitts and Nevis'],
+            ['code' => 'LC', 'id' => Str::uuid(), 'name' => 'Saint Lucia'],
+            ['code' => 'MF', 'id' => Str::uuid(), 'name' => 'Saint Martin (French part)'],
+            ['code' => 'PM', 'id' => Str::uuid(), 'name' => 'Saint Pierre and Miquelon'],
+            ['code' => 'VC', 'id' => Str::uuid(), 'name' => 'Saint Vincent and the Grenadines'],
+            ['code' => 'WS', 'id' => Str::uuid(), 'name' => 'Samoa'],
+            ['code' => 'SM', 'id' => Str::uuid(), 'name' => 'San Marino'],
+            ['code' => 'ST', 'id' => Str::uuid(), 'name' => 'Sao Tome and Principe'],
+            ['code' => 'SA', 'id' => Str::uuid(), 'name' => 'Saudi Arabia'],
+            ['code' => 'SN', 'id' => Str::uuid(), 'name' => 'Senegal'],
+            ['code' => 'RS', 'id' => Str::uuid(), 'name' => 'Serbia'],
+            ['code' => 'SC', 'id' => Str::uuid(), 'name' => 'Seychelles'],
+            ['code' => 'SL', 'id' => Str::uuid(), 'name' => 'Sierra Leone'],
+            ['code' => 'SG', 'id' => Str::uuid(), 'name' => 'Singapore'],
+            ['code' => 'SX', 'id' => Str::uuid(), 'name' => 'Sint Maarten (Dutch part)'],
+            ['code' => 'SK', 'id' => Str::uuid(), 'name' => 'Slovakia'],
+            ['code' => 'SI', 'id' => Str::uuid(), 'name' => 'Slovenia'],
+            ['code' => 'SB', 'id' => Str::uuid(), 'name' => 'Solomon Islands'],
+            ['code' => 'SO', 'id' => Str::uuid(), 'name' => 'Somalia'],
+            ['code' => 'ZA', 'id' => Str::uuid(), 'name' => 'South Africa'],
+            ['code' => 'GS', 'id' => Str::uuid(), 'name' => 'South Georgia and the South Sandwich Islands'],
+            ['code' => 'SS', 'id' => Str::uuid(), 'name' => 'South Sudan'],
+            ['code' => 'ES', 'id' => Str::uuid(), 'name' => 'Spain'],
+            ['code' => 'LK', 'id' => Str::uuid(), 'name' => 'Sri Lanka'],
+            ['code' => 'SD', 'id' => Str::uuid(), 'name' => 'Sudan'],
+            ['code' => 'SR', 'id' => Str::uuid(), 'name' => 'Suriname'],
+            ['code' => 'SJ', 'id' => Str::uuid(), 'name' => 'Svalbard and Jan Mayen'],
+            ['code' => 'SZ', 'id' => Str::uuid(), 'name' => 'Swaziland'],
+            ['code' => 'SE', 'id' => Str::uuid(), 'name' => 'Sweden'],
+            ['code' => 'CH', 'id' => Str::uuid(), 'name' => 'Switzerland'],
+            ['code' => 'SY', 'id' => Str::uuid(), 'name' => 'Syrian Arab Republic'],
+            ['code' => 'TW', 'id' => Str::uuid(), 'name' => 'Taiwan'],
+            ['code' => 'TJ', 'id' => Str::uuid(), 'name' => 'Tajikistan'],
+            ['code' => 'TZ', 'id' => Str::uuid(), 'name' => 'Tanzania, United Republic of'],
+            ['code' => 'TH', 'id' => Str::uuid(), 'name' => 'Thailand'],
+            ['code' => 'TL', 'id' => Str::uuid(), 'name' => 'Timor-Leste'],
+            ['code' => 'TG', 'id' => Str::uuid(), 'name' => 'Togo'],
+            ['code' => 'TK', 'id' => Str::uuid(), 'name' => 'Tokelau'],
+            ['code' => 'TO', 'id' => Str::uuid(), 'name' => 'Tonga'],
+            ['code' => 'TT', 'id' => Str::uuid(), 'name' => 'Trinidad and Tobago'],
+            ['code' => 'TN', 'id' => Str::uuid(), 'name' => 'Tunisia'],
+            ['code' => 'TR', 'id' => Str::uuid(), 'name' => 'Turkey'],
+            ['code' => 'TM', 'id' => Str::uuid(), 'name' => 'Turkmenistan'],
+            ['code' => 'TC', 'id' => Str::uuid(), 'name' => 'Turks and Caicos Islands'],
+            ['code' => 'TV', 'id' => Str::uuid(), 'name' => 'Tuvalu'],
+            ['code' => 'UG', 'id' => Str::uuid(), 'name' => 'Uganda'],
+            ['code' => 'UA', 'id' => Str::uuid(), 'name' => 'Ukraine'],
+            ['code' => 'AE', 'id' => Str::uuid(), 'name' => 'United Arab Emirates'],
+            ['code' => 'GB', 'id' => Str::uuid(), 'name' => 'United Kingdom'],
+            ['code' => 'US', 'id' => Str::uuid(), 'name' => 'United States'],
+            ['code' => 'UM', 'id' => Str::uuid(), 'name' => 'United States Minor Outlying Islands'],
+            ['code' => 'UY', 'id' => Str::uuid(), 'name' => 'Uruguay'],
+            ['code' => 'UZ', 'id' => Str::uuid(), 'name' => 'Uzbekistan'],
+            ['code' => 'VU', 'id' => Str::uuid(), 'name' => 'Vanuatu'],
+            ['code' => 'VE', 'id' => Str::uuid(), 'name' => 'Venezuela, Bolivarian Republic of'],
+            ['code' => 'VN', 'id' => Str::uuid(), 'name' => 'Viet Nam'],
+            ['code' => 'VG', 'id' => Str::uuid(), 'name' => 'Virgin Islands, British'],
+            ['code' => 'VI', 'id' => Str::uuid(), 'name' => 'Virgin Islands, U.S.'],
+            ['code' => 'WF', 'id' => Str::uuid(), 'name' => 'Wallis and Futuna'],
+            ['code' => 'EH', 'id' => Str::uuid(), 'name' => 'Western Sahara'],
+            ['code' => 'YE', 'id' => Str::uuid(), 'name' => 'Yemen'],
+            ['code' => 'ZM', 'id' => Str::uuid(), 'name' => 'Zambia'],
+            ['code' => 'ZW', 'id' => Str::uuid(), 'name' => 'Zimbabwe'],
         ];
  
         DB::table('countries')->insert($countries);
     }
+}
 ```
 
 #### Role
@@ -763,7 +784,7 @@ php artisan make:model Role -a
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('type', 30)->unique;
             $table->timestamps();
         });
     }
@@ -818,10 +839,12 @@ php artisan make:model Language -a
 ##### Migration
 
 ```php
-    public function up()
+public function up()
     {
         Schema::create('languages', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('code', 2)->unique;
+            $table->string('name', 20)->unique;
             $table->timestamps();
         });
     }
@@ -1165,7 +1188,7 @@ php artisan make:model Difficulty -a
     {
         Schema::create('cefrs', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('level');
+            $table->string('level', 2)->unique;
             $table->timestamps();
         });
     }
@@ -1218,9 +1241,9 @@ php artisan make:model Type -a
 ```php
     public function up()
     {
-        Schema::create('types', function (Blueprint $table) {
+		Schema::create('types', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('type');
+            $table->string('type', 20)->unique;
             $table->timestamps();
         });
     }
@@ -1273,12 +1296,12 @@ php artisan make:model Author -a
 ##### Migration
 
 ```php
-    public function up()
+public function up()
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('first_name, 50');
+            $table->string('last_name, 50');
             $table->timestamps();
         });
     }
@@ -1333,14 +1356,14 @@ protected $fillable = [
 ##### Migration
 
 ```php
-public function up()
+    public function up()
     {
         Schema::create('texts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('text');
+            $table->text('text', 65534)->unique();
+            $table->enum('difficulty', ['easy', 'medium', 'hard']);
             $table->uuid('author_id');
             $table->uuid('cefr_id');
-            $table->uuid('difficulty_id');
             $table->uuid('type_id');
             $table->timestamps();
 
@@ -1351,10 +1374,6 @@ public function up()
             $table->foreign('cefr_id')
                   ->references('id')
                   ->on('cefrs')
-                  ->onDelete('cascade');
-            $table->foreign('difficulty_id')
-                  ->references('id')
-                  ->on('difficulties')
                   ->onDelete('cascade');
             $table->foreign('type_id')
                   ->references('id')
@@ -1415,9 +1434,9 @@ php artisan make:model Es_text -a
 ```php
     public function up()
     {
-        Schema::create('es_texts', function (Blueprint $table) {
+        Schema::create('estexts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('text');
+            $table->text('text', 65534)->unique();
             $table->uuid('text_id');
             $table->timestamps();
 
@@ -1481,14 +1500,14 @@ php artisan make:model Translation -a
 ##### Migration
 
 ```php
-    public function up()
+     public function up()
     {
         Schema::create('translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->timestamp('date_time')->useCurrent();
             // hit_rate: percentage, two decimal number between 0 and 1:
             $table->decimal('hit_rate', $precision = 3, $scale = 2);
-            $table->string('text');
+            $table->text('text', 65534);
             $table->uuid('user_id');
             $table->uuid('text_id');
             $table->uuid('language_id');
@@ -1501,10 +1520,6 @@ php artisan make:model Translation -a
             $table->foreign('text_id')
                   ->references('id')
                   ->on('texts')
-                  ->onDelete('cascade');
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
                   ->onDelete('cascade');
             $table->foreign('language_id')
                   ->references('id')
@@ -1846,186 +1861,9 @@ composer update
 php artisan migrate:fresh --seed
 ```
 
-### Data restrictions
-
-Add data restrictions:
-
-#### countries
-
-```php
-public function up()
-    {
-        Schema::create('countries', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('name', 50)->unique;
-            $table->string('code', 2)->unique;
-            $table->timestamps();
-        });
-    }
-```
-
-#### languages
-
-```php
-    public function up()
-    {
-        Schema::create('languages', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('code', 2)->unique;
-            $table->string('name', 20)->unique;
-            $table->timestamps();
-        });
-    }
-```
-
-#### cefrs
-
-```php
-Schema::create('cefrs', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('level', 2)->unique;
-            $table->timestamps();
-        });
-```
-
-#### types
-
-```php
-    public function up()
-    {
-        Schema::create('types', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('type', 20)->unique;
-            $table->timestamps();
-        });
-    }
-```
-
-#### users
-
-```php
-public function up()
-    {
-        Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('first_name, 50');
-            $table->string('last_name, 50');
-            $table->string('profile_picture, 255');
-            $table->string('username, 50');
-            $table->string('email, 70')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password, 255');
-            $table->boolean('is_admin, 1');
-            $table->uuid('country_id');
-            $table->rememberToken();
-            $table->timestamps();
-
-            $table->foreign('country_id')
-                  ->references('id')
-                  ->on('countries')
-                  ->onDelete('cascade');
-        });
-    }
-```
-
-#### authors
-
-```php
-public function up()
-    {
-        Schema::create('authors', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('first_name, 50');
-            $table->string('last_name, 50');
-            $table->timestamps();
-        });
-    }
-```
-
-#### texts
-
-```php
-    public function up()
-    {
-        Schema::create('texts', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->text('text', 65534)->unique();
-            $table->enum('difficulty', ['easy', 'medium', 'hard']);
-            $table->uuid('author_id');
-            $table->uuid('cefr_id');
-            $table->uuid('type_id');
-            $table->timestamps();
-
-            $table->foreign('author_id')
-                  ->references('id')
-                  ->on('authors')
-                  ->onDelete('cascade');
-            $table->foreign('cefr_id')
-                  ->references('id')
-                  ->on('cefrs')
-                  ->onDelete('cascade');
-            $table->foreign('type_id')
-                  ->references('id')
-                  ->on('types')
-                  ->onDelete('cascade');
-        });
-    }
-```
-
-#### estexts
-
-```php
-    public function up()
-    {
-        Schema::create('estexts', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->text('text', 65534)->unique();
-            $table->uuid('text_id');
-            $table->timestamps();
-
-            $table->foreign('text_id')
-                  ->references('id')
-                  ->on('texts')
-                  ->onDelete('cascade');
-        });
-    }
-```
-
-#### translations
-
-```php
-    public function up()
-    {
-        Schema::create('translations', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->timestamp('date_time')->useCurrent();
-            // hit_rate: percentage, two decimal number between 0 and 1:
-            $table->decimal('hit_rate', $precision = 3, $scale = 2);
-            $table->text('text', 65534);
-            $table->uuid('user_id');
-            $table->uuid('text_id');
-            $table->uuid('language_id');
-            $table->timestamps();
-
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
-            $table->foreign('text_id')
-                  ->references('id')
-                  ->on('texts')
-                  ->onDelete('cascade');
-            $table->foreign('language_id')
-                  ->references('id')
-                  ->on('languages')
-                  ->onDelete('cascade');
-        });
-    }
-```
-
 ### Regenerate secret after fresh
 
-To avoid **attempt to read property "secret" on null** or **Personal access client not found. Please create one.** error when generating user token after seeding from fresh the database,
+To avoid **Attempt to read property \"secret\" on null** or **Personal access client not found. Please create one** error when generating user token after seeding from fresh the database,
 
 ```
 php artisan migrate:fresh --seed
@@ -2146,7 +1984,13 @@ class UserController extends Controller
 }
  ```
 
-##
+When testing endpoint, if Postman returns 200 OK but it doesn't show the correct answer, it will be needed to add the header
+
+Accept: application/json
+
+https://stackoverflow.com/questions/63706546/laravel-api-not-accepting-json-request-from-postman
+
+https://stackoverflow.com/questions/66886978/laravel-post-route-returns-http-code-200-but-no-record-is-created
 
 #### forget
 
