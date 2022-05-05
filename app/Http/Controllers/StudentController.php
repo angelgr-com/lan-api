@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Learn_User;
-use App\Http\Requests\StoreLearn_UserRequest;
-use App\Http\Requests\UpdateLearn_UserRequest;
+use App\Models\Student;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 
-class LearnUserController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class LearnUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreLearn_UserRequest  $request
+     * @param  \App\Http\Requests\StoreStudentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreLearn_UserRequest $request)
+    public function store(StoreStudentRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class LearnUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Learn_User  $learn_User
+     * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Learn_User $learn_User)
+    public function show(Student $student)
     {
         //
     }
@@ -53,10 +53,10 @@ class LearnUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Learn_User  $learn_User
+     * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(Learn_User $learn_User)
+    public function edit(Student $student)
     {
         //
     }
@@ -64,11 +64,11 @@ class LearnUserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateLearn_UserRequest  $request
-     * @param  \App\Models\Learn_User  $learn_User
+     * @param  \App\Http\Requests\UpdateStudentRequest  $request
+     * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLearn_UserRequest $request, Learn_User $learn_User)
+    public function update(UpdateStudentRequest $request, Student $student)
     {
         //
     }
@@ -76,10 +76,10 @@ class LearnUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Learn_User  $learn_User
+     * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Learn_User $learn_User)
+    public function destroy(Student $student)
     {
         //
     }

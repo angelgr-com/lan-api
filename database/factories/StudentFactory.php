@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Language;
 use App\Models\User;
+use App\Models\Language;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Learn_User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>
  */
-class LearnUserFactory extends Factory
+class StudentFactory extends Factory
 {
     /**
      * Define the model's default state.
