@@ -20,8 +20,6 @@ class DatabaseSeeder extends Seeder
             TypeSeeder::class,
             UserSeeder::class,
             CefrSeeder::class,
-            RoleSeeder::class,
-            RoleUserSeeder::class,
             AuthorSeeder::class,
             SourceSeeder::class,
             TextSeeder::class,
