@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('difficulties', function (Blueprint $table) {
             $table->uuid('id')->primary();
-			$table->enum('level', ['easy', 'medium', 'hard']);
+			$table->enum('level', ['easy', 'medium', 'hard'])->unique;
             $table->timestamps();
         });
     }

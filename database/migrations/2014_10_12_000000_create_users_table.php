@@ -17,13 +17,13 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('first_name', 50);
             $table->string('last_name', 50);
-            $table->string('profile_picture', 255);
+            $table->string('profile_picture', 255)->nullable();
             $table->string('username', 50);
             $table->string('email', 70)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
-            $table->boolean('is_admin', 1);
-            $table->uuid('country_id');
+            $table->boolean('is_admin', 1)->default(0);
+            $table->uuid('country_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
