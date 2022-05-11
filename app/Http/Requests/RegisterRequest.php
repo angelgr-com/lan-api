@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'first_name' => 'required|string|alpha|min:2|max:50',
-            'last_name' => 'required|string|alpha|min:2|max:50',
+            'last_name' => 'string|alpha|min:2|max:50',
             'profile_picture' => 'string|min:2|max:255',
             'username' => 'required|string|alpha_num|unique:users,username|min:2|max:50',
             'email' => 'required|string|unique:users,email|email|min:8|max:70',
