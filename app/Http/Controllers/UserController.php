@@ -67,4 +67,24 @@ class UserController extends Controller
             ], 401);
         }
     }
+
+    public function logout (Request $request) {
+        try {
+            $token = $request->user()->token();
+            $token->revoke();
+            return response()->json([
+                'message' => 'Logout successful.'
+            ], 200);
+        } catch (Exception $exception) {
+            Log::info('Logout failed. Error: '.$exception->getMessage());
+            return response()->json([
+                'message' => 'Register failed',
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+                'File' => $exception->getFile(),
+                'Line' => $exception->getLine(),
+                'Trace' => $exception->getTrace(),
+            ], 401);
+        }
+    }
 }
