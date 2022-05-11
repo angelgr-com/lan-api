@@ -13,12 +13,12 @@ Route::group(
   ],
   function() {
       Route::post('/users/logout', [UserController::class, 'logout']);
-      Route::get('/users/profile', [AuthController::class, 'profile']);
-      Route::put('/users/profile/edit', [AuthController::class, 'editProfile']);
-      Route::post('/users/forget', [AuthController::class, 'forget']);
-      Route::post('/users/reset', [AuthController::class, 'reset']);
-      Route::delete('/users/delete/', [AuthController::class, 'deleteProfile']);
-      Route::delete('/users/delete/{user_id}', [AuthController::class, 'deleteById']);
+      Route::get('/users/profile', [UserController::class, 'profile']);
+      Route::put('/users/profile/edit', [UserController::class, 'editProfile']);
+      Route::post('/users/forget', [UserController::class, 'forget']);
+      Route::post('/users/reset', [UserController::class, 'reset']);
+      Route::delete('/users/delete/', [UserController::class, 'deleteProfile']);
+      Route::delete('/users/delete/{user_id}', [UserController::class, 'deleteById']);
   }
 );
 
