@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -19,6 +20,7 @@ class UserController extends Controller
             $user = User::create($validatedData);
 
             // $token = $user->createToken('token')->accessToken;
+            Log::info('User registered successfully. Username: '.$user->username);
 
             return response()->json([
                 'message' => 'User registered successfully',
@@ -26,7 +28,7 @@ class UserController extends Controller
                 'user' => $user,
             ], 200);
         } catch (Exception $exception) {
-
+            Log::info('Register failed. Error: '.$exception->getMessage());
             return response()->json([
                 'message' => 'Register failed',
                 'Error' => $exception->getMessage(),
@@ -37,4 +39,6 @@ class UserController extends Controller
             ], 401);
         }
     }
+
+    
 }
