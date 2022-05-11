@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Text;
+use App\Models\Language;
 use App\Http\Requests\StoreTextRequest;
 use App\Http\Requests\UpdateTextRequest;
 
 class TextController extends Controller
 {
+    public function languagesList(){
+        $languages = Language::orderBy('name')
+                        ->select('name as label', 'name as value')
+                        ->get();
+        return $languages;
+    }
+    
     /**
      * Display a listing of the resource.
      *
