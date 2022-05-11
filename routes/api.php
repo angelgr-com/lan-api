@@ -29,5 +29,6 @@ Route::group(
   ],
   function() {
       Route::get('/texts/languages', [TextController::class, 'languagesList']);
+      Route::get('/texts/countries', [TextController::class, 'countriesList']);
   }
 );
