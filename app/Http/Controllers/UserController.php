@@ -40,5 +40,31 @@ class UserController extends Controller
         }
     }
 
-    
+    public function login(Request $request)
+    {
+        // Validate request data
+        $credentials = $request->validate([
+            'email' => 'required|string|email|min:8|max:64',
+            'password' => 'required|string|min:8|max:32|'
+        ]);
+
+        // Attempt to login user with provided credentials
+        if (auth()->attempt($credentials)) {
+            $user = User::where('email', $request->email)->first();
+            return response([
+                'user' => [
+                    'id' => $user->id,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'username' => $user->username,
+                    'email' => $user->email,
+                ],
+                'token' => $user->createToken('authToken')->accessToken
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Invalid user or password.'
+            ], 401);
+        }
+    }
 }
