@@ -8,6 +8,7 @@ use App\Models\Language;
 use App\Http\Requests\StoreTextRequest;
 use App\Http\Requests\UpdateTextRequest;
 use App\Models\Country;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class TextController extends Controller
@@ -38,7 +39,7 @@ class TextController extends Controller
                         ->get();
         return $languages;
     }
-    
+  
     /**
      * Display a listing of the resource.
      *
@@ -46,9 +47,19 @@ class TextController extends Controller
      */
     public function index()
     {
-        $data = Text::orderBy('difficulty','asc')->paginate(10);
+        $texts = DB::table('texts')
+        ->select(
+            'texts.text as text',
+            'texts.difficulty as difficulty',
+            'sources.author_id as author_id',
+            'cefrs.level as cefr',
+            'types.type as type',)
+        ->leftJoin('sources', 'sources.id', '=', 'texts.source_id')
+        ->leftJoin('cefrs', 'cefrs.id', '=', 'texts.cefr_id')
+        ->leftJoin('types', 'types.id', '=', 'texts.type_id')
+        ->get();
 
-        return response()->json(['texts' => $data]);
+        return $texts;
     }
 
     /**
@@ -70,10 +81,6 @@ class TextController extends Controller
 
         $quotes = json_decode($response->getBody());
 
-        // $texts = Text::create([
-        //     'name' => 'London to Paris',
-        // ]);
-
         return $quotes;
     }
 
@@ -85,7 +92,7 @@ class TextController extends Controller
      */
     public function show(Text $text)
     {
-        //
+
     }
 
     /**

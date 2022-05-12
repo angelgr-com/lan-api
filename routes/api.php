@@ -30,7 +30,8 @@ Route::group(
   function() {
       Route::get('/texts/languages', [TextController::class, 'languagesList']);
       Route::get('/texts/countries', [TextController::class, 'countriesList']);
-      Route::get('/texts', [TextController::class, 'index']);
-      Route::get('/texts', [TextController::class, 'create']);
+      Route::get('/texts/all', [TextController::class, 'index']);
+      Route::get('/texts/zenquotes', [TextController::class, 'create']);
+      Route::get('/texts/', [TextController::class, 'show']);
   }
 );
