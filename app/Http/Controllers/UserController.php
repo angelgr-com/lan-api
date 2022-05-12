@@ -21,12 +21,12 @@ class UserController extends Controller
             $validatedData['password']=bcrypt($validatedData['password']);
             $user = User::create($validatedData);
 
-            // $token = $user->createToken('token')->accessToken;
+            $token = $user->createToken('token')->accessToken;
             Log::info('User registered successfully. Username: '.$user->username);
 
             return response()->json([
                 'message' => 'User registered successfully',
-                // 'token' => $token,
+                'token' => $token,
                 'user' => $user,
             ], 200);
         } catch (Exception $exception) {
