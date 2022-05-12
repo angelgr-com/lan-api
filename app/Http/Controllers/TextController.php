@@ -7,6 +7,7 @@ use App\Models\Text;
 use App\Models\Language;
 use App\Http\Requests\StoreTextRequest;
 use App\Http\Requests\UpdateTextRequest;
+use App\Models\Author;
 use App\Models\Country;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -60,6 +61,12 @@ class TextController extends Controller
         ->get();
 
         return $texts;
+    }
+
+    public function authorName($id) {
+        $author = Author::find($id);
+
+        return $author->first_name .' '. $author->last_name;
     }
 
     /**
