@@ -115,7 +115,7 @@ class UserController extends Controller
         // Search for logged in user
         $user = User::where('id', '=', auth('api')->user()->id)->first();
 
-        // Reject changes if an aunthenticated user tries to delete another user
+        // Reject changes if an aunthenticated user tries to edit another user
         if($user->id != auth()->user()->id) {
             Log::info('Unauthorized user profile edit for user: '.auth()->user()->id);
             return response()->json([
@@ -191,5 +191,24 @@ class UserController extends Controller
                 'user' => auth()->user(),
             ], 400);
         }
+    }
+
+    public function deleteProfile () {
+        // Search for logged in user
+        $user = User::where('id', '=', auth('api')->user()->id)->first();
+
+        // Reject if an aunthenticated user tries to delete another user
+        if($user->id != auth()->user()->id) {
+            Log::info('Unauthorized user profile edit for user: '.auth()->user()->id);
+            return response()->json([
+                'message' => 'Action unauthorized',
+            ], 400);
+        }
+
+        $user->delete();
+
+        return response()->json([
+            'message' => 'Your user has been deleted successfully.'
+        ], 200);
     }
 }
