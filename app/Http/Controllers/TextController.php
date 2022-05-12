@@ -8,14 +8,28 @@ use App\Models\Language;
 use App\Http\Requests\StoreTextRequest;
 use App\Http\Requests\UpdateTextRequest;
 use App\Models\Country;
+use Illuminate\Support\Facades\Log;
 
 class TextController extends Controller
 {
     public function languagesList(){
-        $languages = Language::orderBy('name')
-                        ->select('name as label', 'name as value')
-                        ->get();
-        return $languages;
+        try {
+            $languages = Language::orderBy('name')
+            ->select('name as label', 'name as value')
+            ->get();
+            
+            return $languages;
+        } catch (\Exception $exception) {
+            Log::error('Register failed. Error: '.$exception->getMessage());
+            return response()->json([
+                'message' => 'Languages failed',
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+                'File' => $exception->getFile(),
+                'Line' => $exception->getLine(),
+                'Trace' => $exception->getTrace(),
+            ], 500);     
+        }
     }
 
     public function countriesList(){

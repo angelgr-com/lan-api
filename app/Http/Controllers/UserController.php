@@ -30,7 +30,7 @@ class UserController extends Controller
                 'user' => $user,
             ], 200);
         } catch (Exception $exception) {
-            Log::info('Register failed. Error: '.$exception->getMessage());
+            Log::error('Register failed. Error: '.$exception->getMessage());
             return response()->json([
                 'message' => 'Register failed',
                 'Error' => $exception->getMessage(),
