@@ -17,8 +17,8 @@ class LanguageSeeder extends Seeder
      */
     public function run()
     {
-        $now = new DateTime();
-        $now = $now->format('Y-m-d H:i:s');
+        // $now = new DateTime();
+        // $now = $now->format('Y-m-d H:i:s');
  
         $languages = [
             ['code' => 'ab', 'id' => Str::uuid(), 'name' => 'Abkhazian'],

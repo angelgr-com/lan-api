@@ -20,7 +20,7 @@ class TextController extends Controller
             
             return $languages;
         } catch (\Exception $exception) {
-            Log::error('Register failed. Error: '.$exception->getMessage());
+            Log::error('Retrieve of languages list failed. Error: '.$exception->getMessage());
             return response()->json([
                 'message' => 'Languages failed',
                 'Error' => $exception->getMessage(),
