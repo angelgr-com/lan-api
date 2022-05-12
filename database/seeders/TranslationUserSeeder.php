@@ -15,6 +15,6 @@ class TranslationUserSeeder extends Seeder
      */
     public function run()
     {
-        Translation_User::factory()->times(10)->create();
+        // Translation_User::factory()->times(10)->create();
     }
 }

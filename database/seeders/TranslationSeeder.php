@@ -15,6 +15,6 @@ class TranslationSeeder extends Seeder
      */
     public function run()
     {
-        Translation::factory()->times(10)->create();
+        // Translation::factory()->times(10)->create();
     }
 }

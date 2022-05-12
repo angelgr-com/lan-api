@@ -164,5 +164,7 @@ class TextSeeder extends Seeder
                 'type_id' => DB::table('types')->where('type', '=', 'quote')->value('id'),
             ],
         ];
+
+        DB::table('texts')->insert($texts);
     }
 }

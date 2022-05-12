@@ -15,6 +15,6 @@ class NativeSeeder extends Seeder
      */
     public function run()
     {
-        Native::factory()->times(10)->create();
+        // Native::factory()->times(10)->create();
     }
 }

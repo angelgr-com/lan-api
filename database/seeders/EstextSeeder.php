@@ -15,6 +15,6 @@ class EstextSeeder extends Seeder
      */
     public function run()
     {
-        Estext::factory()->times(10)->create();
+        // Estext::factory()->times(10)->create();
     }
 }

@@ -110,5 +110,7 @@ class AuthorSourceSeeder extends Seeder
                 'source_id' => DB::table('sources')->where('url', '=', 'zenquotes.io Dogen')->value('id'),
             ],
         ];
+
+        DB::table('author__sources')->insert($author__sources);
     }
 }

@@ -110,5 +110,7 @@ class AuthorSeeder extends Seeder
                 'last_name' => '',
             ],
         ];
+
+        DB::table('authors')->insert($authors);
     }
 }
