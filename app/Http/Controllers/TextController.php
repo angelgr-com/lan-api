@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Client;
 use App\Models\Text;
 use App\Models\Language;
 use App\Http\Requests\StoreTextRequest;
@@ -31,7 +32,9 @@ class TextController extends Controller
      */
     public function index()
     {
-        //
+        $data = Text::orderBy('difficulty','asc')->paginate(10);
+
+        return response()->json(['texts' => $data]);
     }
 
     /**
@@ -41,18 +44,23 @@ class TextController extends Controller
      */
     public function create()
     {
-        //
-    }
+        //https://zenquotes.io/api/quotes
+        // Instantiate the client class from GuzzleHttp\Client
+        $client = new Client();
+        $url = "https://zenquotes.io/api/quotes";
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTextRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreTextRequest $request)
-    {
-        //
+
+        $response = $client->request('GET', $url, [
+            'verify'  => false,
+        ]);
+
+        $quotes = json_decode($response->getBody());
+
+        // $texts = Text::create([
+        //     'name' => 'London to Paris',
+        // ]);
+
+        return $quotes;
     }
 
     /**
