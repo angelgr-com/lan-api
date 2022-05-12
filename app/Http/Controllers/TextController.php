@@ -31,7 +31,9 @@ class TextController extends Controller
      */
     public function index()
     {
-        //
+        $data = Text::orderBy('difficulty','asc')->paginate(10);
+
+        return response()->json(['texts' => $data]);
     }
 
     /**
