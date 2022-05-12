@@ -17,4 +17,9 @@ class Text extends Model
         'cefr_id',
     	'type_id',
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }
