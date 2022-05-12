@@ -24,7 +24,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Locke',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Locke')->value('id'),
             ],
@@ -33,7 +33,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Tolkien',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Tolkien')->value('id'),
             ],
@@ -42,7 +42,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Dumas',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Dumas')->value('id'),
             ],
@@ -51,7 +51,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Rohn',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Rohn')->value('id'),
             ],
@@ -60,7 +60,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io King',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'King')->value('id'),
             ],
@@ -69,7 +69,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Carnegie',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Carnegie')->value('id'),
             ],
@@ -78,7 +78,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Dylan',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Dylan')->value('id'),
             ],
@@ -87,7 +87,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Churchill',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Churchill')->value('id'),
             ],
@@ -96,7 +96,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Eliot',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Eliot')->value('id'),
             ],
@@ -105,7 +105,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Sharma',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Sharma')->value('id'),
             ],
@@ -114,7 +114,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Tolle',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Tolle')->value('id'),
             ],
@@ -123,7 +123,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Maraboli',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Maraboli')->value('id'),
             ],
@@ -132,7 +132,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Dickens',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Dickens')->value('id'),
             ],
@@ -141,7 +141,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Cameron',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Cameron')->value('id'),
             ],
@@ -150,7 +150,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Emerson',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Emerson')->value('id'),
             ],
@@ -159,7 +159,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Deng',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Deng')->value('id'),
             ],
@@ -168,7 +168,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Beecher',
                 'author_id' => DB::table('authors')
                 ->where('last_name', '=', 'Beecher')->value('id'),
             ],
@@ -177,7 +177,7 @@ class SourceSeeder extends Seeder
                 'title' => '',
                 'chapter' => '',
                 'paragraph' => '',
-                'url' => 'zenquotes.io',
+                'url' => 'zenquotes.io Dogen',
                 'author_id' => DB::table('authors')
                 ->where('first_name', '=', 'Dogen')->value('id'),
             ],
