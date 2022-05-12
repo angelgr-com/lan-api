@@ -31,5 +31,6 @@ Route::group(
       Route::get('/texts/languages', [TextController::class, 'languagesList']);
       Route::get('/texts/countries', [TextController::class, 'countriesList']);
       Route::get('/texts', [TextController::class, 'index']);
+      Route::get('/texts', [TextController::class, 'create']);
   }
 );
