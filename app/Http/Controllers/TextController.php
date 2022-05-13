@@ -40,7 +40,9 @@ class TextController extends Controller
             $text = DB::table('texts')->where('id', '=', $id)->value('text');
 
             if($text !== null) {
-                return $text;
+                return response()->json([
+                    'text' => $text
+                ], 400);
             } else {
                 return response()->json([
                     'message' => 'Invalid id'
