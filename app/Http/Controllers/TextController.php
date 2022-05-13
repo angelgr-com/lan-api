@@ -163,9 +163,22 @@ class TextController extends Controller
     }
 
     public function authorFullName($id) {
-        $author = Author::find($id);
+        // Validate paramether before query the database
+        if (preg_match("/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i", $id)) {
+            $author = Author::find($id);
 
-        return $author->first_name .' '. $author->last_name;
+            if($author !== null) {
+                return $author->first_name .' '. $author->last_name;
+            } else {
+                return response()->json([
+                    'message' => 'Invalid id'
+                ], 400);
+            }
+        } else {
+            return response()->json([
+                'message' => 'Invalid parameter'
+            ], 400);  
+        }
     }
 
     public function languagesList(){
