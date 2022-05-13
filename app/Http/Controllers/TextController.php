@@ -79,7 +79,7 @@ class TextController extends Controller
         }
     }
 
-    public function esText($textId)
+    public function retrieveCorrectTranslation($textId)
     {
         // Validate uuid before query the database
         if (preg_match("/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i", $textId)) {
@@ -87,7 +87,15 @@ class TextController extends Controller
             ->where('text_id', '=', $textId)
             ->value('text');
 
-            return $esText;
+            if($esText !== null) {
+                return response()->json([
+                    'esText' => $esText
+                ], 400);
+            } else {
+                return response()->json([
+                    'message' => 'Invalid id'
+                ], 400);
+            }
         } else {
             return response()->json([
                 'message' => 'Invalid parameter'
@@ -95,7 +103,7 @@ class TextController extends Controller
         }
     }
 
-    public function saveTranslation(Request $request) {
+    public function saveUserTranslation(Request $request) {
         if($request->language === 'English' | $request->language === 'Spanish' ) {
             $translation = new Translation();
 
