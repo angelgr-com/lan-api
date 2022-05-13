@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EditProfileRequest;
 use App\Http\Requests\CompleteUserProfileRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Native;
+use App\Models\Student;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -103,16 +105,50 @@ class UserController extends Controller
         return response()->json(['user' => auth()->user()], 200);
     }
 
-    public function completeUserProfile(CompleteUserProfileRequest $request) {
-        $country_id = DB::table('countries')
-                ->where('name', '=', $request->country)
-                ->value('id');
-        
-    }
+    public function completeUserProfile(Request $request) {
+        try {
+            $country_id = DB::table('countries')
+                        ->where('name', '=', $request->country)
+                        ->value('id');
+            $language_id = DB::table('languages')
+                            ->where('name', '=', $request->native_language)
+                            ->value('id');
+            $studying_language_id = DB::table('languages')
+            ->where('name', '=', $request->studying_language)
+            ->value('id');
 
-    // "country": "", // saved as users/country_id 
-    // "native_language": "", // saved as natives/language_id
-    // "studying_language": "" // saved as students/language_id
+            // Update user
+            $user = User::where('id', '=', auth('api')->user()->id)->first();
+            $user->country_id = $country_id;
+            $user->save();
+
+            // Save new register in Natives table
+            $native_language = new Native();
+            $native_language->user_id = $user->id;
+            $native_language->language_id = $language_id;
+            $native_language->save();
+
+            // Save new register in Natives table
+            $studying_language = new Student();
+            $studying_language->user_id = $user->id;
+            $studying_language->language_id = $language_id;
+            $studying_language->save();
+
+            return response()->json([
+                'message' => 'User profile completed successfully',
+            ], 200);
+        } catch (\Exception $exception) {
+            Log::error('Complete user profile failed. Error: '.$exception->getMessage());
+            return response()->json([
+                'message' => 'Languages failed',
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+                'File' => $exception->getFile(),
+                'Line' => $exception->getLine(),
+                'Trace' => $exception->getTrace(),
+            ], 500);     
+        }
+    }
 
     public function editProfile(EditProfileRequest $request)
     {
