@@ -8,32 +8,31 @@ use Illuminate\Support\Facades\Route;
 Route::post('/users', [UserController::class, 'register']);
 Route::post('/users/login', [UserController::class, 'login']);
 Route::group(
-  [
-    'middleware' => 'auth:api'
-  ],
-  function() {
-      Route::post('/users/logout', [UserController::class, 'logout']);
-      Route::get('/users/profile', [UserController::class, 'profile']);
-      Route::put('/users/profile', [UserController::class, 'editProfile']);
-      // Route::post('/users/forget', [UserController::class, 'forget']);
-      // Route::post('/users/reset', [UserController::class, 'reset']);
-      Route::delete('/users', [UserController::class, 'deleteProfile']);
-      // Route::delete('/users/{user_id}', [UserController::class, 'deleteById']);
-  }
+    [
+        'middleware' => 'auth:api'
+    ],
+    function () {
+        Route::post('/users/logout', [UserController::class, 'logout']);
+        Route::get('/users/profile', [UserController::class, 'profile']);
+        Route::put('/users/profile', [UserController::class, 'editProfile']);
+        // Route::post('/users/forget', [UserController::class, 'forget']);
+        // Route::post('/users/reset', [UserController::class, 'reset']);
+        Route::delete('/users', [UserController::class, 'deleteProfile']);
+        // Route::delete('/users/{user_id}', [UserController::class, 'deleteById']);
+    }
 );
 
 // Text endpoints
 Route::group(
-  [
-      'middleware' => 'auth:api'
-  ],
-  function() {
-      Route::get('/texts/languages', [TextController::class, 'languagesList']);
-      Route::get('/texts/countries', [TextController::class, 'countriesList']);
-      Route::get('/texts/all', [TextController::class, 'index']);
-      Route::get('/texts/zenquotes', [TextController::class, 'create']);
-      Route::get('/texts/all', [TextController::class, 'index']);
-      Route::get('/texts/author/{id}', [TextController::class, 'authorName']);
-      Route::get('/texts/{cefr}', [TextController::class, 'textsByCefr']);
-  }
+    [
+        'middleware' => 'auth:api'
+    ],
+    function () {
+        Route::get('/texts/', [TextController::class, 'getAll']);
+        Route::get('/texts/{cefr}', [TextController::class, 'textsByCefr']);
+        Route::get('/texts/author/{id}', [TextController::class, 'authorName']);
+        Route::get('/texts/languages', [TextController::class, 'languagesList']);
+        Route::get('/texts/countries', [TextController::class, 'countriesList']);
+        Route::get('/texts/zenquotes', [TextController::class, 'zenquotes']);
+    }
 );

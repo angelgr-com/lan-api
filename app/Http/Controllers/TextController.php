@@ -14,51 +14,7 @@ use Illuminate\Support\Facades\Log;
 
 class TextController extends Controller
 {
-    public function languagesList(){
-        try {
-            $languages = Language::orderBy('name')
-                         ->select('name as label', 'name as value')
-                         ->get();
-            
-            return $languages;
-        } catch (\Exception $exception) {
-            Log::error('Retrieve of languages list failed. Error: '.$exception->getMessage());
-            return response()->json([
-                'message' => 'Languages failed',
-                'Error' => $exception->getMessage(),
-                'Code' => $exception->getCode(),
-                'File' => $exception->getFile(),
-                'Line' => $exception->getLine(),
-                'Trace' => $exception->getTrace(),
-            ], 500);     
-        }
-    }
-
-    public function countriesList(){
-        try {
-            $languages = Country::orderBy('name')
-                         ->select('name as label', 'name as value')
-                         ->get();
-            return $languages;
-        } catch (\Exception $exception) {
-            Log::error('Retrieve of countries list failed. Error: '.$exception->getMessage());
-            return response()->json([
-                'message' => 'Languages failed',
-                'Error' => $exception->getMessage(),
-                'Code' => $exception->getCode(),
-                'File' => $exception->getFile(),
-                'Line' => $exception->getLine(),
-                'Trace' => $exception->getTrace(),
-            ], 500);     
-        }
-    }
-  
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function getAll()
     {
         $texts = DB::table('texts')
         ->select(
@@ -106,7 +62,46 @@ class TextController extends Controller
         return $author->first_name .' '. $author->last_name;
     }
 
-    public function create()
+    public function languagesList(){
+        try {
+            $languages = Language::orderBy('name')
+                         ->select('name as label', 'name as value')
+                         ->get();
+            
+            return $languages;
+        } catch (\Exception $exception) {
+            Log::error('Retrieve of languages list failed. Error: '.$exception->getMessage());
+            return response()->json([
+                'message' => 'Languages failed',
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+                'File' => $exception->getFile(),
+                'Line' => $exception->getLine(),
+                'Trace' => $exception->getTrace(),
+            ], 500);     
+        }
+    }
+
+    public function countriesList(){
+        try {
+            $languages = Country::orderBy('name')
+                         ->select('name as label', 'name as value')
+                         ->get();
+            return $languages;
+        } catch (\Exception $exception) {
+            Log::error('Retrieve of countries list failed. Error: '.$exception->getMessage());
+            return response()->json([
+                'message' => 'Languages failed',
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+                'File' => $exception->getFile(),
+                'Line' => $exception->getLine(),
+                'Trace' => $exception->getTrace(),
+            ], 500);     
+        }
+    }
+
+    public function zenquotes()
     {
         //https://zenquotes.io/api/quotes
         // Instantiate the client class from GuzzleHttp\Client
