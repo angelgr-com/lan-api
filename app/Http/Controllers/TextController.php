@@ -31,6 +31,25 @@ class TextController extends Controller
         return $texts;
     }
 
+    public function getTextById($id) {
+        // Validate paramether before query the database
+        if (preg_match("/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i", $id)) {
+            $text = DB::table('texts')->where('id', '=', $id)->value('text');
+
+            if($text !== null) {
+                return $text;
+            } else {
+                return response()->json([
+                    'message' => 'Invalid id'
+                ], 400);
+            }
+        } else {
+            return response()->json([
+                'message' => 'Invalid parameter'
+            ], 400);  
+        }
+    }
+
     public function textsByCefr($level)
     {
         // Validate paramether before query the database

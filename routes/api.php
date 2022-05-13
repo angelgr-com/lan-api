@@ -29,7 +29,8 @@ Route::group(
     ],
     function () {
         Route::get('/texts/', [TextController::class, 'getAll']);
-        Route::get('/texts/{cefr}', [TextController::class, 'textsByCefr']);
+        Route::get('/texts/id/{id}', [TextController::class, 'getTextById']);
+        Route::get('/texts/cefr/{cefr}', [TextController::class, 'textsByCefr']);
         Route::get('/texts/en-es/{textId}', [TextController::class, 'esText']);
         Route::get('/texts/author/{id}', [TextController::class, 'authorFullName']);
         Route::get('/texts/languages', [TextController::class, 'languagesList']);
