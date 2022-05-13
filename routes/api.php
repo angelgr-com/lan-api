@@ -19,6 +19,7 @@ Route::group(
         // Route::post('/users/reset', [UserController::class, 'reset']);
         Route::delete('/users', [UserController::class, 'deleteProfile']);
         // Route::delete('/users/{user_id}', [UserController::class, 'deleteById']);
+        Route::post('/users/profile/add-data', [UserController::class, 'completeUserProfile']);
     }
 );
 

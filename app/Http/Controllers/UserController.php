@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditProfileRequest;
+use App\Http\Requests\CompleteUserProfileRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -100,6 +102,17 @@ class UserController extends Controller
 
         return response()->json(['user' => auth()->user()], 200);
     }
+
+    public function completeUserProfile(CompleteUserProfileRequest $request) {
+        $country_id = DB::table('countries')
+                ->where('name', '=', $request->country)
+                ->value('id');
+        
+    }
+
+    // "country": "", // saved as users/country_id 
+    // "native_language": "", // saved as natives/language_id
+    // "studying_language": "" // saved as students/language_id
 
     public function editProfile(EditProfileRequest $request)
     {
