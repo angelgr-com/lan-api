@@ -19,6 +19,7 @@ Route::group(
         // Route::post('/users/reset', [UserController::class, 'reset']);
         Route::delete('/users', [UserController::class, 'deleteProfile']);
         // Route::delete('/users/{user_id}', [UserController::class, 'deleteById']);
+        Route::post('/users/profile/add-data', [UserController::class, 'completeUserProfile']);
     }
 );
 
@@ -29,8 +30,10 @@ Route::group(
     ],
     function () {
         Route::get('/texts/', [TextController::class, 'getAll']);
-        Route::get('/texts/{cefr}', [TextController::class, 'textsByCefr']);
-        Route::get('/texts/en-es/{textId}', [TextController::class, 'esText']);
+        Route::get('/texts/id/{id}', [TextController::class, 'getTextById']);
+        Route::get('/texts/cefr/{cefr}', [TextController::class, 'textsByCefr']);
+        Route::get('/texts/en-es/{textId}', [TextController::class, 'retrieveCorrectTranslation']);
+        Route::post('/texts/translation', [TextController::class, 'saveUserTranslation']);
         Route::get('/texts/author/{id}', [TextController::class, 'authorFullName']);
         Route::get('/texts/languages', [TextController::class, 'languagesList']);
         Route::get('/texts/countries', [TextController::class, 'countriesList']);

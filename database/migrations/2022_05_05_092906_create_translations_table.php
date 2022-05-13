@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('translations', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->timestamp('date_time')->useCurrent();
             // hit_rate: percentage, two decimal number between 0 and 1:
             $table->decimal('hit_rate', $precision = 3, $scale = 2);
             $table->text('text', 65534);

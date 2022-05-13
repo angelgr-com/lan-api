@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Client;
-use App\Models\Text;
-use App\Models\Language;
 use App\Http\Requests\StoreTextRequest;
 use App\Http\Requests\UpdateTextRequest;
+use GuzzleHttp\Client;
 use App\Models\Author;
 use App\Models\Country;
+use App\Models\Language;
+use App\Models\Text;
+use App\Models\Translation;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class TextController extends Controller
 {
@@ -29,6 +32,27 @@ class TextController extends Controller
         ->get();
 
         return $texts;
+    }
+
+    public function getTextById($id) {
+        // Validate paramether before query the database
+        if (preg_match("/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i", $id)) {
+            $text = DB::table('texts')->where('id', '=', $id)->value('text');
+
+            if($text !== null) {
+                return response()->json([
+                    'text' => $text
+                ], 400);
+            } else {
+                return response()->json([
+                    'message' => 'Invalid id'
+                ], 400);
+            }
+        } else {
+            return response()->json([
+                'message' => 'Invalid parameter'
+            ], 400);  
+        }
     }
 
     public function textsByCefr($level)
@@ -57,7 +81,7 @@ class TextController extends Controller
         }
     }
 
-    public function esText($textId)
+    public function retrieveCorrectTranslation($textId)
     {
         // Validate uuid before query the database
         if (preg_match("/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i", $textId)) {
@@ -65,7 +89,15 @@ class TextController extends Controller
             ->where('text_id', '=', $textId)
             ->value('text');
 
-            return $esText;
+            if($esText !== null) {
+                return response()->json([
+                    'esText' => $esText
+                ], 400);
+            } else {
+                return response()->json([
+                    'message' => 'Invalid id'
+                ], 400);
+            }
         } else {
             return response()->json([
                 'message' => 'Invalid parameter'
@@ -73,10 +105,92 @@ class TextController extends Controller
         }
     }
 
-    public function authorFullName($id) {
-        $author = Author::find($id);
+    public function saveUserTranslation(Request $request) {
+        if($request->language === 'English' | $request->language === 'Spanish' ) {
+            $translation = new Translation();
 
-        return $author->first_name .' '. $author->last_name;
+            $language_id = DB::table('languages')
+                           ->where('name', '=', $request->language)
+                           ->value('id');
+            $user_id = User::where('id', '=', auth('api')->user()->id)->value('id');
+
+            // Replaces one or more spaces with only one space
+            $request->text = preg_replace("/\s+/", " ", $request->text);
+            // Removes punctuation
+            $request->text = preg_replace("/[,;\'\".]/", " ", $request->text);
+            $userTranslationArray = explode(" ", $request->text);
+            $databaseText = DB::table('estexts')
+                ->where('text_id', '=', $request->text_id)
+                ->value('text');
+
+            if($request->language === 'English') {
+                $databaseText = DB::table('texts')
+                ->where('id', '=', $request->text_id)
+                ->value('text');
+            }
+            if($request->language === 'Spanish') {
+                $databaseText = DB::table('estexts')
+                ->where('text_id', '=', $request->text_id)
+                ->value('text');
+            }
+
+            // Replaces one or more spaces with only one space
+            $databaseText = preg_replace("/\s+/", " ", $databaseText);
+            // Removes punctuation
+            $databaseText = preg_replace("/[,;\'\".]/", "", $databaseText);
+            $databaseTextArray = explode(" ", $databaseText);
+
+            $hits = 0;
+
+            for($i=0; $i<count($databaseTextArray); $i++) {
+                if($databaseTextArray[$i] === $userTranslationArray[$i]) {
+                    $hits++;
+                }
+            }
+            
+            $hit_rate = round($hits / count($databaseTextArray), 2);
+
+            $translation->hit_rate = $hit_rate;
+            $translation->text = $request->text;
+            $translation->user_id = $user_id;
+            $translation->text_id = $request->text_id;
+            $translation->language_id = $language_id;
+            $translation->save();
+
+            return response()->json([
+                'translation' => $translation,
+                // 'userTranslationArray' => $userTranslationArray,
+                // '$request->language' => $request->language,
+                // 'databaseText' => $databaseText,
+                // 'databaseTextArray' => $databaseTextArray,
+            ], 200); 
+
+        } else {
+            return response()->json([
+                'message' => 'Invalid parameter'
+            ], 400); 
+        }
+    }
+
+    public function authorFullName($id) {
+        // Validate paramether before query the database
+        if (preg_match("/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i", $id)) {
+            $author = Author::find($id);
+
+            if($author !== null) {
+                return response()->json([
+                    'author' => $author->first_name .' '. $author->last_name
+                ], 400);
+            } else {
+                return response()->json([
+                    'message' => 'Invalid id'
+                ], 400);
+            }
+        } else {
+            return response()->json([
+                'message' => 'Invalid parameter'
+            ], 400);  
+        }
     }
 
     public function languagesList(){
