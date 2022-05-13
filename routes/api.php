@@ -32,8 +32,8 @@ Route::group(
       Route::get('/texts/countries', [TextController::class, 'countriesList']);
       Route::get('/texts/all', [TextController::class, 'index']);
       Route::get('/texts/zenquotes', [TextController::class, 'create']);
-      Route::get('/texts/', [TextController::class, 'show']);
       Route::get('/texts/all', [TextController::class, 'index']);
       Route::get('/texts/author/{id}', [TextController::class, 'authorName']);
+      Route::get('/texts/{cefr}', [TextController::class, 'textsByCefr']);
   }
 );

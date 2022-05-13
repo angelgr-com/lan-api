@@ -17,8 +17,8 @@ class TextController extends Controller
     public function languagesList(){
         try {
             $languages = Language::orderBy('name')
-            ->select('name as label', 'name as value')
-            ->get();
+                         ->select('name as label', 'name as value')
+                         ->get();
             
             return $languages;
         } catch (\Exception $exception) {
@@ -35,10 +35,22 @@ class TextController extends Controller
     }
 
     public function countriesList(){
-        $languages = Country::orderBy('name')
-                        ->select('name as label', 'name as value')
-                        ->get();
-        return $languages;
+        try {
+            $languages = Country::orderBy('name')
+                         ->select('name as label', 'name as value')
+                         ->get();
+            return $languages;
+        } catch (\Exception $exception) {
+            Log::error('Retrieve of countries list failed. Error: '.$exception->getMessage());
+            return response()->json([
+                'message' => 'Languages failed',
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+                'File' => $exception->getFile(),
+                'Line' => $exception->getLine(),
+                'Trace' => $exception->getTrace(),
+            ], 500);     
+        }
     }
   
     /**
@@ -63,17 +75,37 @@ class TextController extends Controller
         return $texts;
     }
 
+    public function textsByCefr($level)
+    {
+        // Validate paramether before query the database
+        if (preg_match("/^[A-Ca-c][1-2]/i", $level)) {
+            $texts = DB::table('texts')
+            ->select(
+                'texts.text as text',
+                'texts.difficulty as difficulty',
+                'sources.author_id as author_id',
+                'cefrs.level as cefr',
+                'types.type as type',)
+            ->where('level', '=', $level)
+            ->leftJoin('sources', 'sources.id', '=', 'texts.source_id')
+            ->leftJoin('cefrs', 'cefrs.id', '=', 'texts.cefr_id')
+            ->leftJoin('types', 'types.id', '=', 'texts.type_id')
+            ->paginate(1);
+
+            return $texts;
+        } else {
+            return response()->json([
+                'message' => 'Invalid parameter'
+            ], 400);  
+        }
+    }
+
     public function authorName($id) {
         $author = Author::find($id);
 
         return $author->first_name .' '. $author->last_name;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //https://zenquotes.io/api/quotes
@@ -89,50 +121,5 @@ class TextController extends Controller
         $quotes = json_decode($response->getBody());
 
         return $quotes;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Text  $text
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Text $text)
-    {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Text  $text
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Text $text)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTextRequest  $request
-     * @param  \App\Models\Text  $text
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateTextRequest $request, Text $text)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Text  $text
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Text $text)
-    {
-        //
     }
 }
