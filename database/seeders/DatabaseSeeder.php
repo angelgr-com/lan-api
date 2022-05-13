@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             SourceSeeder::class,
             AuthorSourceSeeder::class,
             TextSeeder::class,
-            // EsTextSeeder::class,
+            EsTextSeeder::class,
             // StudentSeeder::class,
             // NativeSeeder::class,
             // TranslationSeeder::class,

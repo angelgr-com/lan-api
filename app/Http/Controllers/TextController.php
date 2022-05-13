@@ -37,6 +37,7 @@ class TextController extends Controller
         if (preg_match("/^[A-Ca-c][1-2]/i", $level)) {
             $texts = DB::table('texts')
             ->select(
+                'texts.id as id',
                 'texts.text as text',
                 'texts.difficulty as difficulty',
                 'sources.author_id as author_id',
@@ -56,7 +57,23 @@ class TextController extends Controller
         }
     }
 
-    public function authorName($id) {
+    public function esText($textId)
+    {
+        // Validate uuid before query the database
+        if (preg_match("/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i", $textId)) {
+            $esText = DB::table('estexts')
+            ->where('text_id', '=', $textId)
+            ->value('text');
+
+            return $esText;
+        } else {
+            return response()->json([
+                'message' => 'Invalid parameter'
+            ], 400);  
+        }
+    }
+
+    public function authorFullName($id) {
         $author = Author::find($id);
 
         return $author->first_name .' '. $author->last_name;

@@ -30,7 +30,8 @@ Route::group(
     function () {
         Route::get('/texts/', [TextController::class, 'getAll']);
         Route::get('/texts/{cefr}', [TextController::class, 'textsByCefr']);
-        Route::get('/texts/author/{id}', [TextController::class, 'authorName']);
+        Route::get('/texts/en-es/{textId}', [TextController::class, 'esText']);
+        Route::get('/texts/author/{id}', [TextController::class, 'authorFullName']);
         Route::get('/texts/languages', [TextController::class, 'languagesList']);
         Route::get('/texts/countries', [TextController::class, 'countriesList']);
         Route::get('/texts/zenquotes', [TextController::class, 'zenquotes']);
