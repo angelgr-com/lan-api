@@ -178,7 +178,9 @@ class TextController extends Controller
             $author = Author::find($id);
 
             if($author !== null) {
-                return $author->first_name .' '. $author->last_name;
+                return response()->json([
+                    'author' => $author->first_name .' '. $author->last_name
+                ], 400);
             } else {
                 return response()->json([
                     'message' => 'Invalid id'
