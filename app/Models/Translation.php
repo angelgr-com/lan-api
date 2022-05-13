@@ -11,12 +11,17 @@ class Translation extends Model
     use Uuids, HasFactory;
 
     protected $fillable = [
-        'date_time',
         'hit_rate',
         'text',
     	'user_id',
     	'text_id',
     	'language_id',
+    ];
+
+    protected $hidden = [
+        'id',
+        'created_at',
+        'updated_at',
     ];
 
     // A translation can be reviewed by many users

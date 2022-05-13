@@ -36,5 +36,6 @@ Route::group(
         Route::get('/texts/languages', [TextController::class, 'languagesList']);
         Route::get('/texts/countries', [TextController::class, 'countriesList']);
         Route::get('/texts/zenquotes', [TextController::class, 'zenquotes']);
+        Route::post('/texts/translation', [TextController::class, 'saveTranslation']);
     }
 );
