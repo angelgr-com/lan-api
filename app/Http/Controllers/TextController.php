@@ -92,7 +92,7 @@ class TextController extends Controller
             if($esText !== null) {
                 return response()->json([
                     'esText' => $esText
-                ], 400);
+                ], 200);
             } else {
                 return response()->json([
                     'message' => 'Invalid id'
@@ -119,9 +119,9 @@ class TextController extends Controller
             // Removes punctuation
             $request->text = preg_replace("/[,;\'\".]/", " ", $request->text);
             $userTranslationArray = explode(" ", $request->text);
-            $databaseText = DB::table('estexts')
-                ->where('text_id', '=', $request->text_id)
-                ->value('text');
+            // $databaseText = DB::table('estexts')
+            //     ->where('text_id', '=', $request->text_id)
+            //     ->value('text');
 
             if($request->language === 'English') {
                 $databaseText = DB::table('texts')
@@ -142,7 +142,12 @@ class TextController extends Controller
 
             $hits = 0;
 
-            for($i=0; $i<count($databaseTextArray); $i++) {
+            // Save the minimum array length to avoid out of index when comparing arrays
+            $length = min(
+                count($databaseTextArray), count($userTranslationArray)
+            );
+
+            for($i=0; $i<$length; $i++) {
                 if($databaseTextArray[$i] === $userTranslationArray[$i]) {
                     $hits++;
                 }
@@ -180,7 +185,7 @@ class TextController extends Controller
             if($author !== null) {
                 return response()->json([
                     'author' => $author->first_name .' '. $author->last_name
-                ], 400);
+                ], 200);
             } else {
                 return response()->json([
                     'message' => 'Invalid id'
