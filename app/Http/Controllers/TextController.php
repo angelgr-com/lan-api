@@ -114,15 +114,7 @@ class TextController extends Controller
                            ->value('id');
             $user_id = User::where('id', '=', auth('api')->user()->id)->value('id');
 
-            // Replaces one or more spaces with only one space
-            $request->text = preg_replace("/\s+/", " ", $request->text);
-            // Removes punctuation
-            $request->text = preg_replace("/[,;\'\".]/", " ", $request->text);
-            $userTranslationArray = explode(" ", $request->text);
-            // $databaseText = DB::table('estexts')
-            //     ->where('text_id', '=', $request->text_id)
-            //     ->value('text');
-
+            // Find translation in database
             if($request->language === 'English') {
                 $databaseText = DB::table('texts')
                 ->where('id', '=', $request->text_id)
@@ -134,10 +126,18 @@ class TextController extends Controller
                 ->value('text');
             }
 
-            // Replaces one or more spaces with only one space
+            // Prepare received translation by checking
+            // that words are separeted by only one space
+            $request->text = preg_replace("/\s+/", " ", $request->text);
+            // Removes punctuation
+            $request->text = preg_replace("/[,;\'\".]/", " ", $request->text);
+            $userTranslationArray = explode(" ", $request->text);
+
+            // Prepare database text by checking
+            // that words are separeted by only one space
             $databaseText = preg_replace("/\s+/", " ", $databaseText);
             // Removes punctuation
-            $databaseText = preg_replace("/[,;\'\".]/", "", $databaseText);
+            $databaseText = preg_replace("/[,;\'\".]/", " ", $databaseText);
             $databaseTextArray = explode(" ", $databaseText);
 
             $hits = 0;
@@ -151,6 +151,10 @@ class TextController extends Controller
                 if($databaseTextArray[$i] === $userTranslationArray[$i]) {
                     $hits++;
                 }
+                // $searchedValue = $databaseTextArray[$i];
+                // if (array_search($searchedValue, $userTranslationArray) != false) {
+                //     $hits++;
+                // }
             }
             
             $hit_rate = round($hits / count($databaseTextArray), 2);
@@ -164,10 +168,10 @@ class TextController extends Controller
 
             return response()->json([
                 'translation' => $translation,
-                // 'userTranslationArray' => $userTranslationArray,
-                // '$request->language' => $request->language,
-                // 'databaseText' => $databaseText,
-                // 'databaseTextArray' => $databaseTextArray,
+                'userTranslationArray' => $userTranslationArray,
+                '$request->language' => $request->language,
+                'databaseText' => $databaseText,
+                'databaseTextArray' => $databaseTextArray,
             ], 200); 
 
         } else {
