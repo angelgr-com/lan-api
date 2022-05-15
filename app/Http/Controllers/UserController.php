@@ -150,6 +150,43 @@ class UserController extends Controller
         }
     }
 
+    public function isProfileComplete(Request $request) {
+        try {
+            $user = User::where('id', '=', auth('api')->user()->id)->first();
+            $country = DB::table('users')
+                       ->where('id', '=', $user->id)
+                       ->value('country_id');
+            $native_language = DB::table('natives')
+                               ->where('user_id', '=', $user->id)
+                               ->value('id');
+            $studying_language = DB::table('students')
+                                 ->where('user_id', '=', $user->id)
+                                 ->value('id');
+
+            if ($country !== null &&
+                $native_language !== null &&
+                $studying_language !== null) {
+                return response()->json([
+                    'message' => 'User is complete',
+                ], 200);
+            } else {
+                return response()->json([
+                    'message' => 'User is not complete',
+                ], 200);
+            }
+        } catch (\Exception $exception) {
+            Log::error('Complete user profile failed. Error: '.$exception->getMessage());
+            return response()->json([
+                'message' => 'Languages failed',
+                'Error' => $exception->getMessage(),
+                'Code' => $exception->getCode(),
+                'File' => $exception->getFile(),
+                'Line' => $exception->getLine(),
+                'Trace' => $exception->getTrace(),
+            ], 500);     
+        }
+    }
+
     public function editProfile(EditProfileRequest $request)
     {
         Log::info(

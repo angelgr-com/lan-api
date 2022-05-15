@@ -20,6 +20,7 @@ Route::group(
         Route::delete('/users', [UserController::class, 'deleteProfile']);
         // Route::delete('/users/{user_id}', [UserController::class, 'deleteById']);
         Route::post('/users/profile/add-data', [UserController::class, 'completeUserProfile']);
+        Route::get('/users/profile/complete', [UserController::class, 'isProfileComplete']);
     }
 );
 
