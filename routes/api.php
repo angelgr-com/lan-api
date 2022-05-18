@@ -16,7 +16,7 @@ Route::group(
         Route::post('/users/logout', [UserController::class, 'logout']);
         Route::get('/users/profile', [UserController::class, 'profile']);
         Route::put('/users/profile', [UserController::class, 'editProfile']);
-        Route::post('/users', [UserController::class, 'deleteProfile']);
+        Route::post('/users/delete', [UserController::class, 'deleteProfile']);
         Route::post('/users/profile/add-data', [UserController::class, 'completeUserProfile']);
         Route::get('/users/profile/complete', [UserController::class, 'isProfileComplete']);
     }
