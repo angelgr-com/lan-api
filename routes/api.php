@@ -5,6 +5,7 @@ use App\Http\Controllers\TextController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+// User endpoints
 Route::post('/users', [UserController::class, 'register']);
 Route::post('/users/login', [UserController::class, 'login']);
 Route::group(
@@ -15,10 +16,7 @@ Route::group(
         Route::post('/users/logout', [UserController::class, 'logout']);
         Route::get('/users/profile', [UserController::class, 'profile']);
         Route::put('/users/profile', [UserController::class, 'editProfile']);
-        // Route::post('/users/forget', [UserController::class, 'forget']);
-        // Route::post('/users/reset', [UserController::class, 'reset']);
         Route::delete('/users', [UserController::class, 'deleteProfile']);
-        // Route::delete('/users/{user_id}', [UserController::class, 'deleteById']);
         Route::post('/users/profile/add-data', [UserController::class, 'completeUserProfile']);
         Route::get('/users/profile/complete', [UserController::class, 'isProfileComplete']);
     }

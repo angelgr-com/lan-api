@@ -35,7 +35,7 @@ class TextController extends Controller
     }
 
     public function getTextById($id) {
-        // Validate paramether before query the database
+        // Validate UUID parameter before query the database
         if (preg_match("/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i", $id)) {
             $text = DB::table('texts')->where('id', '=', $id)->value('text');
 
@@ -57,7 +57,7 @@ class TextController extends Controller
 
     public function textsByCefr($level)
     {
-        // Validate paramether before query the database
+        // Validate CEFR level parameter before query the database
         if (preg_match("/^[A-Ca-c][1-2]/i", $level)) {
             $texts = DB::table('texts')
             ->select(
@@ -83,7 +83,7 @@ class TextController extends Controller
 
     public function retrieveCorrectTranslation($textId)
     {
-        // Validate uuid before query the database
+        // Validate UUID before query the database
         if (preg_match("/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i", $textId)) {
             $esText = DB::table('estexts')
             ->where('text_id', '=', $textId)
@@ -106,6 +106,7 @@ class TextController extends Controller
     }
 
     public function saveUserTranslation(Request $request) {
+        // Validate language parameter
         if($request->language === 'English' | $request->language === 'Spanish' ) {
             $translation = new Translation();
 
@@ -127,14 +128,14 @@ class TextController extends Controller
             }
 
             // Prepare received translation by checking
-            // that words are separeted by only one space
+            // that words are separated by only one space
             $request->text = preg_replace("/\s+/", " ", $request->text);
             // Removes punctuation
             $request->text = preg_replace("/[,;\'\".]/", " ", $request->text);
             $userTranslationArray = explode(" ", $request->text);
 
             // Prepare database text by checking
-            // that words are separeted by only one space
+            // that words are separated by only one space
             $databaseText = preg_replace("/\s+/", " ", $databaseText);
             // Removes punctuation
             $databaseText = preg_replace("/[,;\'\".]/", " ", $databaseText);
@@ -147,18 +148,17 @@ class TextController extends Controller
                 count($databaseTextArray), count($userTranslationArray)
             );
 
+            // Count how many coincidences between user translation and correct translation
             for($i=0; $i<$length; $i++) {
                 if($databaseTextArray[$i] === $userTranslationArray[$i]) {
                     $hits++;
                 }
-                // $searchedValue = $databaseTextArray[$i];
-                // if (array_search($searchedValue, $userTranslationArray) != false) {
-                //     $hits++;
-                // }
             }
             
+            // Save hit ratio
             $hit_rate = round($hits / count($databaseTextArray), 2);
 
+            // Save translation to database
             $translation->hit_rate = $hit_rate;
             $translation->text = $request->text;
             $translation->user_id = $user_id;
@@ -184,8 +184,10 @@ class TextController extends Controller
     public function authorFullName($id) {
         // Validate paramether before query the database
         if (preg_match("/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i", $id)) {
+            // Find author by id
             $author = Author::find($id);
 
+            // If author id exists get the full name
             if($author !== null) {
                 return response()->json([
                     'author' => $author->first_name .' '. $author->last_name
