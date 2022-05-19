@@ -127,30 +127,34 @@ class TextController extends Controller
                 ->value('text');
             }
 
-            // Prepare received translation by checking
-            // that words are separated by only one space
-            $request->text = preg_replace("/\s+/", " ", $request->text);
             // Removes punctuation
-            $request->text = preg_replace("/[,;\'\".]/", " ", $request->text);
+            $request->text = preg_replace("/[,;\'\".]/", "", $request->text);
             $userTranslationArray = explode(" ", $request->text);
+            // Removes array elements that only have an empty string
+            $userArray = \array_filter($userTranslationArray,
+                                         static function ($element) {
+                                            return ($element !== '' || $element !== '');
+                                         });
 
-            // Prepare database text by checking
-            // that words are separated by only one space
-            $databaseText = preg_replace("/\s+/", " ", $databaseText);
             // Removes punctuation
-            $databaseText = preg_replace("/[,;\'\".]/", " ", $databaseText);
+            $databaseText = preg_replace("/[,;\'\".]/", "", $databaseText);
             $databaseTextArray = explode(" ", $databaseText);
+            // Removes array elements that only have an empty string
+            $dbTextArray = \array_filter($databaseTextArray,
+                                         static function ($element) {
+                                            return ($element !== '' || $element !== '');
+                                         });
 
             $hits = 0;
 
             // Save the minimum array length to avoid out of index when comparing arrays
             $length = min(
-                count($databaseTextArray), count($userTranslationArray)
+                count($dbTextArray), count($userArray)
             );
 
             // Count how many coincidences between user translation and correct translation
             for($i=0; $i<$length; $i++) {
-                if($databaseTextArray[$i] === $userTranslationArray[$i]) {
+                if($dbTextArray[$i] === $userArray[$i]) {
                     $hits++;
                 }
             }
