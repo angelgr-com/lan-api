@@ -1,64 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Languages web application backend
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![PHP](https://img.shields.io/badge/php-%23777BB4.svg?logo=php&logoColor=white&style=for-the-badge) ![Laravel	](https://img.shields.io/badge/laravel-%23FF2D20.svg?logo=laravel&logoColor=white&style=for-the-badge) ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?logo=mysql&logoColor=white&style=for-the-badge) 
 
-## About Laravel
+Complete backend for the development of a languages web application. Frontend developed with React:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- https://github.com/angelgr-com/nau-frontend
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The objective is to develop with the PHP Laravel Framework a REST API (an Application Programming Interface following the design principles of the REST, or representational state transfer architectural style).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Table of contents
 
-## Learning Laravel
+  - [Application requirements](#application-requirements)
+  - [Technologies](#technologies)
+  - [Database model](#database-model)
+  - [How to use](#how-to-use)
+    - [Online](#online)
+    - [Local](#local)
+  - [API endpoints](#api-endpoints)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Application requirements
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- 🆗 Users must be able to register to the application, by establishing a username/password.
+- ✅ Users must be able to authenticate themselves to the application by logging in.
+- 🆕 Users have to be able to translate texts from English to Spanish or vice versa and receive their hit rate.
+- 👩‍💻 Users must be able find details about the text they are translating, by finding its CEFR level, difficulty and type.
+- 📋 Users can enter and modify their profile data.
+- 🆑 Users must be able to delete their profile data.
+- 👋 Users must be able to log out of the web application.
 
-## Laravel Sponsors
+## Technologies
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Technologies used for the development of the API:
 
-### Premium Partners
+- **Laravel**. A MVC PHP framework. 
+- **Laravel/Passport** for API authentication using JWT (JSON Web Token).
+- **SQL**:
+  - **Eloquent**, an object-relational mapper (ORM) to interact with the database.
+  - **Laravel's database Query Builder**, an interface to creating and running database queries.
+- **Git-Flow**, used to code by creating a branch for each feature.
+- **Heroku** to upload the app to production.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Database model
 
-## Contributing
+The database uses several tables to store the application information.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+The main ones are **users **and **texts **which are related through the **translations **table.
 
-## Code of Conduct
+![image-20220424215550287](./assets/img/db.png)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## How to use
 
-## Security Vulnerabilities
+### Online
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+The API is deployed in Heroku so to test the endpoints it is only necessary to use a tool like [Postman](https://www.postman.com/), [Thunder](https://www.thunderclient.com/) or [Insomnia](https://insomnia.rest/).
 
-## License
+By downloading the following files, it is possible to import the endpoints into Postman with a set of requests ready to test endpoints:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Users:
+  - a1_lan-api_users.postman_collection.json
+- Texts:
+  - a2_lan-api_texts.postman_collection.json
+
+### Local
+
+- Clone or [download](https://github.com/angelgr-com/lan-api/archive/refs/heads/main.zip) this repository.
+
+- With [PHP](https://www.php.net/manual/en/install.php) and [Composer](https://getcomposer.org/download/) installed, it is possible to install [Laravel](https://laravel.com/docs/9.x/installation) by using Composer:
+
+  ```bash
+  composer global require laravel/installer
+  ```
+
+- Open the repository folder and install dependencies:
+
+  ```bash
+  cd lan-api
+  composer install
+  ```
+
+- Create a new empty local schema.
+
+- Create a .env file and enter the database configuration using environment variables:
+
+  ```bash
+  DB_CONNECTION=mysql
+  DB_HOST=
+  DB_PORT=
+  DB_DATABASE=
+  DB_USERNAME=
+  DB_PASSWORD=
+  ```
+
+- Run database migrations and seeders:
+
+  ```bash
+  php artisan migrate:fresh --seed
+  ```
+
+- Generate passport keys:
+
+  ```bash
+  php artisan passport:keys
+  ```
+
+- Store the keys in the .env file:
+
+  ```
+  PASSPORT_PERSONAL_ACCESS_CLIENT_ID=
+  PASSPORT_PERSONAL_ACCESS_CLIENT_SECRET=
+  ```
+  
+- Start the server:
+
+  ```
+  php artisan serve
+  ```
+
+## API endpoints
+
+- Base URL:
+  - https://quiet-shelf-00426.herokuapp.com/api/
+
+- Users:
+
+  | method | path                   | comments                                            |
+  | ------ | ---------------------- | --------------------------------------------------- |
+  | POST   | users/register         |                                                     |
+  | POST   | users/login            |                                                     |
+  | POST   | users/logout           | Token required                                      |
+  | GET    | users/profile          | Token required                                      |
+  | PUT    | users/profile          | Token required. Edit profile.                       |
+  | POST   | users/delete           | Token required. Delete profile.                     |
+  | POST   | users/profile/add-data | Token required. Add data to user profile.           |
+  | GET    | users/profile/complete | Token required. Checks if user profile is complete. |
+
+- Texts:
+
+  | method | path                 | description                                                  |
+  | ------ | -------------------- | ------------------------------------------------------------ |
+  | GET    | texts/               | Token required. Retrieve a list of all texts.                |
+  | GET    | texts/id/{id}        | Token required. Get a text by ID.                            |
+  | GET    | texts/cefr/{cefr}    | Token required. Get texts by their CEFR level (A1, A2, B1, B2, C1 or C2). |
+  | GET    | texts/en-es/{textId} | Token required. Obtains the corresponding translation stored in database. |
+  | POST   | texts/translation    | Token required. Saves the user's translation in the database facilitating the translation hit rate. |
+  | GET    | texts/author/{id}    | Token required. Gets the full name of an author.             |
+  | GET    | texts/languages      | Token required. Provides a list of languages.                |
+  | GET    | texts/countries      | Token required. Provides a list of languages.                |
+  | GET    | texts/zenquotes      | Token required. Provides a list of quotes from the zenquotes API. |
+
+  

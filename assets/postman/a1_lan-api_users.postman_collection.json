@@ -1,0 +1,225 @@
+{
+	"info": {
+		"_postman_id": "53d60cc0-4bf2-443f-b244-59c0891654f7",
+		"name": "a1_lan-api_users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"Alice\",\r\n    \"username\": \"alice\",\r\n    \"email\": \"alice@wonderland.com\",\r\n    \"password\": \"\",\r\n    \"password_confirmation\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "XDEBUG_SESSION",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"alice@wonderland.com\",\r\n    \"password\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/users/login",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjQ2YmNkZC1mNGY3LTRlZDctOWFmOS02YmE1YzU2NjI0MzUiLCJqdGkiOiIyNzA1ZTczMjViNGI5NTY0N2U2NmJmNjBkMjE2NjQzODg0NzA4MmU4MGJmNDMwZGI2ZDU5MGU5MDBiNzdhYTI4MTMyM2RiNmU3YzVlYjBmMyIsImlhdCI6MTY1MjMwNjc2MS4zMDAxMzUsIm5iZiI6MTY1MjMwNjc2MS4zMDAxNDIsImV4cCI6MTY1MjkxMTU2MS4xMzY5OTUsInN1YiI6ImMxOTA4NmM4LTQyMmUtNDRmNy05NDNjLTExNzNhOGM1NjhiYSIsInNjb3BlcyI6W119.E0y1LvZb5k8PJWtTiU2Nbb7uIJKqTXD2kWS0zYnx4CBTqMJAjd3XQrHXhBsD7UKRfIFZylW5HDuCd7XWKL3SW_VX-9gELiIxRDq-tL-hVTbIS89XOjeaoMB82Qhx-vLIVGOoTDBCsM4itKoYy8i3g3vTZcRUEcwraAVRERoM_Jy6IelrOqKGVwfkDSDmH9a6iU9VNQhmrlJpD2oolWHLuk5vvTUK1oEgqIGS4aKPNGyYnz73gji3MxYKxROK_7aMKSabisnxJ1D0EA4KvuEAWgEklF5DHyB_Ka1DznKb4EWpHcQonxMMviTeLcfjYIqdpybNhZObkSxa9frXo2IEbHweDKoMH825exSBbMYetJ4nTSqVlyJ0PlHzsC8WaAwmzdC6FYwXN0AUI9ux7lV9K_X60GYLj8Y0k7mqtInQjth1TU3QefJo8amxouCKZKzQzeMKOREpLatBtOxXTYJMDVs9JPKgFJMC_FrTS6PQ_zkVe-fSzMRDhtRaDweI2t9wq6sDPJSe5JJBHmupjIkRZRYWVbJWZikRcwQAVuYoE_8IqH5K3mj-VCKRwyiccWbAQr1Q-XvEMDy1aO1zb7rFhV64o52X6s6iYC8JUB21512bDSMu1vXqbvsxDW1ZTZQm6l8o1lRHNE803-p610008djWWLGJvdVINcScWv5LC7Y",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/users/profile",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editProfile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjQ2YmNkZC1mNGY3LTRlZDctOWFmOS02YmE1YzU2NjI0MzUiLCJqdGkiOiI0MDU3ODk1OGY0NThmNGRkMmFiNTQ4ODcyYmVhYjI4OWNkN2JiZTFiNWVhNzVkMGMyYTIzMDNmNzA0ZDI5Nzc2ZDRjZDFlYjU5YTA4OGQxMyIsImlhdCI6MTY1MjMxODcyMS41OTg1NzksIm5iZiI6MTY1MjMxODcyMS41OTg1OTIsImV4cCI6MTY1MjkyMzUyMS4yOTUzNzUsInN1YiI6ImMxOTA4NmM4LTQyMmUtNDRmNy05NDNjLTExNzNhOGM1NjhiYSIsInNjb3BlcyI6W119.IPLduwm07LufFwXG3zdCp7IfCNRiHCQl6cLl5c8fv5sNDj_rkfZac8SR6i927TVMwI7GfOa7Z9q0z0h3okS-imfJTQIpQIfTUOksBUVGf6zXI79b9piEcztxF61tp041mywu9wYXKsj1jG2njjmI9qzmNHH0jRTLzGovHfROY7t3-iuUCGmPVyaqw1KLgr6IqiJ4kSyLG6ywj6PrEshBJJ2MFlCTsyb_BWDILIk29U2Wfk21yaTSGpgnEHwcesr-CHYx0a5hh-XYejUkhtC2IV-JF7gywB6mHMU3qLZVvVE_woc9qFHPVQNHRivs91fnYTGTIx2ApD0RDirLpXUj7NyYjtxp2KDyFHwn9o630CBpYunwt6lpHzDCWy2lyqEcvFbh62AgXVuq9_znod3W5U4MoV3qhDxoVywjgHd5veGeAWm7eLTL4N_7QixgmQBUfbiFB6V0GTlN5-phasVC3Sg_UI1093MnGWjs4fb7Y-ESY4g01l-jW4qju7HUCsuBjg6gpPEnAkNPi0LkT8hM8hV8x6XnXRbRVv0AuJQV982poVqCgD1qw9x0wmRI6FRoMfQJl29Oo-ZzfYQad0AyvepoIRt8hdydQ2WlChbrhlOy-QBCWDFkAnd3u1Fgc4aNbLuCD4U1r2C9PU5j_TWWL289q8o0CqEIJsykowDAQxc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"Gizmo\",\r\n    \"username\": \"gizmo\",\r\n    \"email\": \"gizmo@gremlins.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/users/profile",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJmYzZhYWRkYmUzMmFiMjBmYTEyMDJjYzU3ZDEwMzk3NjkxMjE0OWY1OWQ3MWVkODU3NzZhNjRlN2Y3MDFiZjEzNmNiYmIxZmQ0ZDhjZTEyMSIsImlhdCI6MTY1MjkwNzE4MS40Njg5MjQsIm5iZiI6MTY1MjkwNzE4MS40Njg5MjYsImV4cCI6MTY1MzUxMTk4MS40NTk2NDQsInN1YiI6Ijk5Y2JiZTkyLTY0MTYtNGU1NC1hODhmLWJjNWMyYjNkNDkyYiIsInNjb3BlcyI6W119.RhMBGVCsNz4p8LOtC8BmHy74-mMi3WCRsWTWM4Rlu0S6mdMsNeWTh0G2Y-qIb-CDjat4wd1NjlTk6p6Ux7jMOY1SwPvk8ZaEgnb1F27FcGnydjUWenij3uIqGf7nGsk91fIH9M-xL7bGqIG-91QRi3fr55frAWSh6Pmkn96ci5b2m7CBAs446GqfJ8H1ZGqDnUSi340bzBIpM8wjcUXDG0j5iRrRvHkD_hozceFEhdvB15z9LS6HOCuzsPHxY7Lj7IPL8B2mzMKnZQCTTQdyCiSMC2dtd2q_Zm2w04-KnUXFbvxhKtblEO2NUT6Do5QrLWEthecHHcTVjcH-dljT635HkI7Dy-k6mfkB0vh-t9MWfNpnsxBWMpW0njwUPdcCtwL9CFfKzkadmvMy_acNN2z5smgn5TXcm2gc-XpeCeuan4uh5hzovdYVbviDDNJtL5sLtA6IoTrmPWr4xNWNh2XL7lZSXhoKQ5h3ewGKe4Plz_ku_6QVIXybEaAjL_37vHpMENOGwGidaFjGPTk66nojE3T5QM5KPovNfKLWjy5zrP_rFz1OJ-pKLKQwkycJMS27CFsVXHAbmaUFqkCMspEiDW3wdoBkFHWiol0EFVARv-QG1jRrG6FkbgryHX-4yS0uWRFvHVYIF-pdU0Ks94XWWrtMzIaG8osxQhxO-ks",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/users/delete",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiI0MGE2ODlhODEyZGEzOWM2NTAzNTUyNmM3NDY2YTAzZDVlYThhOWE4MTkzZjVjYjlmODNhZjlkNDA0ZjBmOGI3MjllNjUwMTk3N2FlYzk5YiIsImlhdCI6MTY1MjY1NDA0My40MjQzMTQsIm5iZiI6MTY1MjY1NDA0My40MjQzMiwiZXhwIjoxNjUzMjU4ODQzLjI1NTMxMSwic3ViIjoiNmJjMTBhMDItNzA4ZC00MDk5LTgxNGUtMzY5ZWI2ZDMyMzMyIiwic2NvcGVzIjpbXX0.RHMRlpMDb6mzU7o4wSZ1f1jONLDZn3cpUL0oOQYDMWrrRePzNhXS5JtJM_VjPeffM-lrZUHoP99mE1tgjMgH4AfelCDF1y_vXS17zgh3kokY8ksnVBHgORSqhOtj9zYdl_dP_Ov3hQCLhnj7bqTfcowAY1OUyrs-drpBXweqCXXdMpRfRyATHadSc36n2YTtwY_ItRiBuYSZTlX2TetAXRFtPrT3lfrvPnPJBNvSzRQNKwd4ZZf72AN5Eyik_x4p3CVCj2PMLaLEqyNWyFG_myJwpN1IN92vzapm8sxpB8jn_i_PgorCE8BrhhL0sisII0nsILbvP-oISkj5cRl6CpAu9sCW356sCkMdtn0vmzdf_SGglo_1C_BXMo7oxhIYOS5mVejrzHaRqiM4lJN8lFW0b849i8izMJfv9kBGCATEVpvXZwurBRyh-JGukS0PoR7biv5LA-oXkONWHaZ0cGe4PHNEPojCZsAHA6GzKOe5tNrrCWvaAuSHwc8tHwxjy5huG9c8-PZjIelAmaPps6vu-W78Ecf5HmCRrECz7eO3-YvyYW_JUEEWSxKURC_ZBpTps26FzoC1fK116D58ogLG8CstEVqDYg-Grcv4lUb-zWVrPhpr-W27TiiPvaqhTSTl1Ikn45evFrwt551OPTPag_nEh7gqZ4X1hdzJeDQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "XDEBUG_SESSION",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/users/logout",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

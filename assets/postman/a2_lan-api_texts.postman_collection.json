@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "dd09d2ee-eff6-4ebb-af15-966f0977771b",
+		"name": "a2_lan-api_texts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAll",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/texts/",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"texts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTextById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/texts/id/4115c92e-9529-445b-8e0a-198d5ea9138f",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"texts",
+						"id",
+						"4115c92e-9529-445b-8e0a-198d5ea9138f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "textsByCefr",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/texts/cefr/a1",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"texts",
+						"cefr",
+						"a1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authorFullName",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/texts/author/34e6e778-8f67-4611-98e9-ba2ffcc853c4",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"texts",
+						"author",
+						"34e6e778-8f67-4611-98e9-ba2ffcc853c4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "en-es",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/texts/en-es/05afd431-4a4f-4702-b4be-4936fdbc87a4",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"texts",
+						"en-es",
+						"05afd431-4a4f-4702-b4be-4936fdbc87a4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "zenquotes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/texts/",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"texts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "languages",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/texts/languages",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"texts",
+						"languages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "countries",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/texts/countries",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"texts",
+						"countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveTranslation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"language\": \"Spanish\",\r\n    \"text\": \"El mérito de todas las cosas está en su dificultad\",\r\n    \"text_id\": \"05afd431-4a4f-4702-b4be-4936fdbc87a4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/texts/translation",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"texts",
+						"translation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "completeProfile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"United Kingdom\",\r\n    \"native_language\": \"English\",\r\n    \"studying_language\": \"Spanish\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/users/profile/add-data",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"profile",
+						"add-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "isProfileComplete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5NjRiZDM5Mi03ZjI3LTRhNzEtYTUwNC1iOWQzYWIxMTlkMjQiLCJqdGkiOiJiMTliNWY0ZDE0ZjNlZDg4MWExYmY2OWZiNDUwZTVmZTY4NjY5Y2U0MGI5ZjViODBiZWI1MzIxYzc0NDhiNDM4NjgwZWFkMzgyNGQyODgzMiIsImlhdCI6MTY1Mjk0NDIzNS4xOTI5NDgsIm5iZiI6MTY1Mjk0NDIzNS4xOTI5NDksImV4cCI6MTY1MzU0OTAzNS4xODQ0NjgsInN1YiI6IjhlMzJlNjg5LTE0MDAtNDkyYy05NmNlLTU3NGE4Y2QyNzQyMCIsInNjb3BlcyI6W119.q8G2WYQgvu3Gkxrso31ZG9-br6QcMkicaIVsP6OvMnNHxN3DN_o6sAt65zoeDqBAjmCTEqPIU9DCiP5m3eyqZLpUk8l2nFayuyCa2L7GNzLg3eQHnpngjy11Y9AvRauv4-sVdrNnp24yLZFdmtsrOlcJt-_7vcHHUQUXYa1yRryTS1NIegTgMKpukKe_0uugQLjQFt6dgI6b6NbXTBHjXTFjzviJMiQLup0QaX4txrgMY2_brp5pceA-E4KQf9gnsRUidJM_a-IXRWez38UBui-FDG7dgBx5IRoWcFF5eelzLIwjrcsTDYnuxWNCKPCc0qSE6y3U_3QCnxpIUzqEvbSZ6yrvpaL1OX4mJBpsGYk4R4I75BJj2eq2Otqy2TT_SCHjttwoN7PfaOrOOxDJS1ZBBiRo-jfJwnaAIIa-YKR0g6uPkzT5Yd7GUUUncXxeUvUpsbh81JLHcADws-paFFSyeQenoBGj_oJcN0VZfnCf8fKCfU_e7Jw8wxyMlJbN2XMwxpf2aGYz61_abv-0haOdCtulDptt3QeKYCDla_n98UaSenmnIS8CJXUdcSxuFb8NrBEasCcbB_mJzD8lGEf5TTfcQtQPGu1ZWu7I0RnzmdiA8ZS1Vpqb0ziACtw7X3fgiNkZ1gaO5kwPblZVNl5F0Msmy4CuKYvTQnXcytM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://quiet-shelf-00426.herokuapp.com/api/users/profile/complete",
+					"protocol": "https",
+					"host": [
+						"quiet-shelf-00426",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"profile",
+						"complete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
