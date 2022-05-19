@@ -2,9 +2,9 @@
 
 ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?logo=php&logoColor=white&style=for-the-badge) ![Laravel	](https://img.shields.io/badge/laravel-%23FF2D20.svg?logo=laravel&logoColor=white&style=for-the-badge) ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?logo=mysql&logoColor=white&style=for-the-badge) 
 
-Complete backend for the development of a languages web application. Frontend developed with React:
+Complete backend for the development of a languages web application.
 
-- https://github.com/angelgr-com/nau-frontend
+- Frontend developed with React: https://github.com/angelgr-com/nau-frontend
 
 The objective is to develop with the PHP Laravel Framework a REST API (an Application Programming Interface following the design principles of the REST, or representational state transfer architectural style).
 
@@ -44,7 +44,7 @@ Technologies used for the development of the API:
 
 The database uses several tables to store the application information.
 
-The main ones are **users **and **texts **which are related through the **translations **table.
+The main ones are **users** and **texts** which are related through the **translations** table.
 
 ![image-20220424215550287](./assets/img/db.png)
 
