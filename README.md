@@ -57,9 +57,9 @@ The API is deployed in Heroku so to test the endpoints it is only necessary to u
 By downloading the following files, it is possible to import the endpoints into Postman with a set of requests ready to test endpoints:
 
 - Users:
-  - a1_lan-api_users.postman_collection.json
+  - [a1_lan-api_users.postman_collection.json](https://raw.githubusercontent.com/angelgr-com/lan-api/main/assets/postman/a1_lan-api_users.postman_collection.json)
 - Texts:
-  - a2_lan-api_texts.postman_collection.json
+  - [a2_lan-api_texts.postman_collection.json](https://raw.githubusercontent.com/angelgr-com/lan-api/main/assets/postman/a2_lan-api_texts.postman_collection.json)
 
 ### Local
 
